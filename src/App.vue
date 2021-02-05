@@ -9,24 +9,59 @@
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @font-face {
+    font-family: 'Igra Sans';
+    src: local('Igra Sans'), local('IgraSans'),
+    url('assets/Fonts/IgraSans.woff') format('woff'),
+    url('assets/Fonts/IgraSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-#nav {
-  padding: 30px;
-}
+  @font-face {
+    font-family: 'Nunito Sans';
+    src: local('Nunito Sans Regular'), local('NunitoSans-Regular'),
+    url('assets/Fonts/NunitoSans-Regular.woff') format('woff'),
+    url('assets/Fonts/NunitoSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  @font-face {
+    font-family: 'Nunito Sans';
+    src: local('Nunito Sans SemiBold'), local('NunitoSans-SemiBold'),
+    url('assets/Fonts/NunitoSans-SemiBold.woff') format('woff'),
+    url('assets/Fonts/NunitoSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Nunito Sans';
+    src: local('Nunito Sans Bold'), local('NunitoSans-Bold'),
+    url('assets/Fonts/NunitoSans-Bold.woff') format('woff'),
+    url('assets/Fonts/NunitoSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  @font-face {
+    font-family: 'Nunito Sans';
+    src: local('Nunito Sans ExtraBold'), local('NunitoSans-ExtraBold'),
+    url('assets/Fonts/NunitoSans-ExtraBold.woff') format('woff'),
+    url('assets/Fonts/NunitoSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Nunito Sans';
+    src: local('Nunito Sans Black'), local('NunitoSans-Black'),
+    url('assets/Fonts/NunitoSans-Black.woff') format('woff'),
+    url('assets/Fonts/NunitoSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
+*{
+  font-family: 'Nunito Sans',serif;
 }
 </style>
