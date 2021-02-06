@@ -2,7 +2,7 @@
     <div class="vertical-menu gradient">
 
         <h1 class="currency_sign"><fa-icon icon="hryvnia" /></h1>
-        <a class=" menu-icon" href="#"><fa-icon icon="hryvnia" /></a>
+        <a class=" menu-icon" href="#"><fa-icon icon="hryvnia" size="lg" /></a>
         <a class=" menu-icon" href="#"><fa-icon icon="hryvnia" /></a>
         <a class=" menu-icon" href="#"><fa-icon icon="hryvnia" /></a>
     </div>
@@ -34,7 +34,7 @@
 
     .menu-icon{
         color:white;
-        vertical-align: bottom;
+        position: fixed;
     }
 
 </style>
