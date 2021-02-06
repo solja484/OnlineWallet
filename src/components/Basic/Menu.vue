@@ -38,7 +38,8 @@
         top: 0;
         left: 0;
         height: 100%;
-        width: 70px;
+        width: 5%;
+        border-radius: 0!important;
     }
 
     .gradient {
@@ -53,8 +54,9 @@
     }
 
     .menu-icon {
-        width: 70px;
-        padding: 10px;
+        width: 5%;
+        padding-top: 10px;
+        padding-bottom: 10px;
         position: fixed;
         color: black;
         text-align: center;
@@ -66,8 +68,8 @@
     }
 
     .menu-icon svg {
-        width: 24px;
-        height: 24px;
+        width: 40%;
+        height: 40%;
     }
 
     .exit-icon {
