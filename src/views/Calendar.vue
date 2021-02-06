@@ -30,6 +30,7 @@
                 </ul>
                 <hr>
                 <a href="https://bootstrap-vue.org/docs/icons" class=" nav-link">Bootstrap icons</a>
+                <a href="https://bootstrap-vue.org/docs/reference/theming" class="nav-link">change theme colors via SASS</a>
             </div>
         </div>
     </div>
