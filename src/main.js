@@ -6,18 +6,10 @@ import Axios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHryvnia } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(faHryvnia);
-
-
-
+import 'feather-icons/dist/feather.js'
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
-Vue.component('fa-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.prototype.$http = Axios;

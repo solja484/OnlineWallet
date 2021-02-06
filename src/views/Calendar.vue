@@ -1,5 +1,5 @@
 <template>
-    
+    <div> <Menu active="calendar"></Menu></div>
 </template>
 
 <script>
