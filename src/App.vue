@@ -1,11 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+  import Menu from '@/components/Basic/Menu.vue'
+  export default {
+    name: "App",
+    components: {
+      Menu
+    }
+  }
+</script>
 
 <style>
   @font-face {
