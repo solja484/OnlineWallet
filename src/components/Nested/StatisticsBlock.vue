@@ -1,10 +1,11 @@
 <template>
-    
+    <div class="px-5">
+    </div>
 </template>
 
 <script>
     export default {
-        name: "IncomesBlock"
+        name: "StatisticsBlock"
     }
 </script>
 

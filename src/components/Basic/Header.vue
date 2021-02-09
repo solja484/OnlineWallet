@@ -1,27 +1,27 @@
 <template>
-    <nav class="sticky-top header justify-content-between px-5 pt-3 pb-2">
+    <nav class="sticky-top header justify-content-between ">
         <div class="header-left nav nav-fill">
-            <router-link to="/" class="nav-link text-dark btn btn-outline-warning active-left"
+            <router-link to="/" class="nav-link text-dark btn btn-outline-warning active-left header-item"
                          :class="{activeLeft: active == 'outcomes',
                          inactive:active!='outcomes'}">
                 Витрати
             </router-link>
-            <router-link to="/incomes" class="nav-link text-dark btn btn-outline-warning"
+            <router-link to="/incomes" class="nav-link text-dark btn btn-outline-warning header-item"
                          :class="{activeLeft: active == 'incomes',
                          inactive:active!='incomes'}">
                 Доходи
             </router-link>
-            <router-link to="/statistic" class="nav-link text-dark btn btn-outline-warning disabled"
+            <router-link to="/statistic" class="nav-link text-dark btn btn-outline-warning header-item"
                          :class="{activeLeft: active == 'statistic',
                          inactive:active!='statistic'}">
                 Статистика
             </router-link>
         </div>
-        <div class="header-right nav nav-fill ">
-            <a class="nav-link text-dark btn btn-outline-danger "
+        <div class="header-right nav nav-fill " v-if="transactions!='none'">
+            <a class="nav-link text-dark btn btn-outline-danger header-item"
                          :class="{activeRight: transactions == 'upcoming',
                          inactive:transactions!='upcoming'}">Заплановані</a>
-            <a class="nav-link text-dark btn btn-outline-danger "
+            <a class="nav-link text-dark btn btn-outline-danger header-item"
                          :class="{activeRight: transactions == 'recent',
                          inactive:transactions!='recent'}">Журнал</a>
 
@@ -32,20 +32,15 @@
 <script>
     export default {
         name: "Header",
-        props: ['active','transactions'],
-
-    data() {
-        return {
-            transaction:''
-        }
-    }
+        props: ['active','transactions']
     }
 </script>
 
 <style scoped >
     .header {
-        font-size: 16px;
+        font-size: 12px;
         margin-left: 5%;
+        padding: 2% 5% 1% 5%;
         display: inline-flex;
         width: 95%;
         background: #FAFAFA;
@@ -54,23 +49,27 @@
 
     .header-left {
         font-family: 'Igra Sans' !important;
-        width: 55%;
+        width: 60%;
     }
 
     .header-right {
         font-family: "Igra Sans" !important;
-        width: 35%;
+        width: 29.5%;
     }
 
+    .header-item{
+        font-size: 12px;
+        border:2px solid transparent;
+    }
     .activeLeft {
-        border: 2px solid #FFBF00;
+        border-color: #FFBF00;
     }
 
     .inactive {
-        border:2px solid transparent;
+        border-color:transparent;
     }
 
     .activeRight {
-        border: 2px solid #CC0000;
+        border-color: #CC0000;
     }
 </style>

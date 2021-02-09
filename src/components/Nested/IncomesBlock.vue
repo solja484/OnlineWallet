@@ -1,10 +1,12 @@
 <template>
-    
+    <div class="px-5">
+        INCOMES
+    </div>
 </template>
 
 <script>
     export default {
-        name: "SettingsBlock"
+        name: "IncomesBlock"
     }
 </script>
 
