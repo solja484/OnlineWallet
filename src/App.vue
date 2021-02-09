@@ -11,7 +11,7 @@
     }
 </script>
 
-<style>
+<style >
     @font-face {
         font-family: 'Igra Sans';
         src: local('Igra Sans'), local('IgraSans'),
@@ -21,8 +21,24 @@
         font-style: normal;
     }
 
+    @font-face {
+        font-family: 'Merriweaher';
+        src: local('Merriweaher'), local('Merriweaher'),
+        url('assets/Fonts/Merriweather-BoldItalic.ttf') format('truetype');
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    h4{
+        font-family: 'Merriweaher';
+        font-style: italic;
+        font-weight: bold;
+        font-size: 18px;
+        color:black;
+    }
     body {
         background: #FAFAFA !important;
+
     }
 
     * {
@@ -32,6 +48,5 @@
     a {
         font-family: 'Igra Sans', serif;
     }
-
 
 </style>

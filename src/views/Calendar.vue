@@ -2,7 +2,7 @@
     <div>
         <Menu active="calendar"></Menu>
         <Header active="none" transactions="none"></Header>
-        <div class="body px-5 pt-4 justify-content-between">
+        <div class="body pt-4 justify-content-between">
             <div class="py-3 px-5 calendar-card">
                 <h2 class="sprint-header">Sprint 1</h2>
                 <hr>
@@ -68,9 +68,9 @@
     }
 
     .body {
-        margin-left: 5%;
+        margin:0 5% 0 10%;
         display: inline-flex;
-        width: 95%;
+        width: 85%;
     }
 
     .calendar-card {

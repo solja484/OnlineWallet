@@ -11,7 +11,7 @@
                      :class="{menuIconActive: active == 'settings'}">
             <b-icon-gear/>
         </router-link>
-        <router-link to="/exit" class="menu-icon exit-icon">
+        <router-link to="/auth" class="menu-icon exit-icon">
             <b-icon-box-arrow-right/>
         </router-link>
     </div>
