@@ -1,5 +1,6 @@
 <template>
     <div class="px-5">
+        STATISTIC
     </div>
 </template>
 

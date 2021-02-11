@@ -11,10 +11,11 @@
 <style scoped>
     .body{
         background: #FFF;
-        margin:2% 5% 0 0;
+        margin:8% 5% 0 0;
         width: 25%;
         height:75vh;
-        float: right;
-        display: inline-flex;
+        top:0;
+        right:0;
+        position: fixed;
     }
 </style>

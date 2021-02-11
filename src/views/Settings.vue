@@ -2,8 +2,12 @@
     <div>
         <Menu active="settings"></Menu>
         <Header active="none" transactions="upcoming"></Header>
-        <InfoField page="settings"></InfoField>
-        <Transactions></Transactions>
+        <div class="justify-content-between align-top">
+            <div class="left-block">
+                <InfoField page="settings"></InfoField>
+            </div>
+            <Transactions></Transactions>
+        </div>
     </div>
 </template>
 
@@ -25,5 +29,9 @@
 </script>
 
 <style scoped>
-
+    .left-block {
+        margin: 8% 0 0 10%;
+        float: left;
+        width: 55%;
+    }
 </style>

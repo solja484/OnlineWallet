@@ -1,7 +1,8 @@
 <template>
     <div class="body">
         <p v-if="page=='settings'" class="bold px-5 pt-3 pb-0 text-center">Налаштування</p>
-        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴3456</span></p>
+        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴3456</span>
+        </p>
         <hr class="line mx-4 my-2">
         <IncomesBlock v-if="page=='incomes'"></IncomesBlock>
         <OutcomesBlock v-if="page=='outcomes'"></OutcomesBlock>
@@ -15,6 +16,7 @@
     import StatisticsBlock from "@/components/Nested/StatisticsBlock";
     import IncomesBlock from "@/components/Nested/IncomesBlock";
     import SettingsBlock from "@/components/Nested/SettingsBlock";
+
     export default {
         name: "InfoField",
         components: {SettingsBlock, IncomesBlock, StatisticsBlock, OutcomesBlock},
@@ -26,15 +28,15 @@
 <style scoped>
     .body {
         background: #FFF;
-        height: 300px;
-        margin: 2% 0 0 10%;
-        width: 55%;
-        float: left;
+        min-height: 100vh;
+        width: 100%;
     }
-    .bold{
-  font-weight: bold;
+
+    .bold {
+        font-weight: bold;
     }
-    .line{
+
+    .line {
         border-color: #FE9D04;
         border-width: 1.5px;
     }

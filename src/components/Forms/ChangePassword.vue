@@ -1,5 +1,7 @@
 <template>
-    
+    <div>
+        <!-- TODO for BO-->
+    </div>
 </template>
 
 <script>

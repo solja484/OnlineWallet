@@ -1,5 +1,5 @@
 <template>
-    <nav class="sticky-top header justify-content-between ">
+    <nav class=" header justify-content-between ">
         <div class="header-left nav nav-fill">
             <router-link to="/" class="nav-link text-dark btn btn-outline-warning active-left header-item"
                          :class="{activeLeft: active == 'outcomes',
@@ -45,6 +45,7 @@
         width: 95%;
         background: #FAFAFA;
         border-radius: 0 !important;
+        position: fixed;
     }
 
     .header-left {

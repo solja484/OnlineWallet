@@ -68,7 +68,7 @@
     }
 
     .body {
-        margin:0 5% 0 10%;
+        margin:6% 5% 0 10%;
         display: inline-flex;
         width: 85%;
     }
