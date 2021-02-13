@@ -5,19 +5,23 @@
         <form>
             <div class="input-group  my-3">
                 <label for="reg_email" class=" pt-2 text-black label">Email:</label>
-                <input type="text" class="form-control input mx-3" id="reg_email"/></div>
+                <input type="email" class="form-control input mx-3" id="reg_email"/></div>
             <div class="input-group  my-3">
+
+                <!--//TODO: check if existing nickname is not in DB -->
+
                 <label for="reg_nickname" class=" pt-2 text-black label">Нікнейм:</label>
-                <input type="text" class="form-control input mx-3" id="reg_nickname"/>
+                <input type="text" class="form-control input mx-3" id="reg_nickname" minlength="2"/>
             </div>
             <div class="input-group  my-3">
 
                 <label for="reg_pass" class="pt-2 text-black label">Пароль:</label>
-                <input type="password" class="form-control mx-3 input" id="reg_pass"/>
+                <input type="password" class="form-control mx-3 input" id="reg_pass" minlength="8"/>
             </div>
             <button type="submit" class="btn btn-outline-danger text-black float-right border-red my-3 mx-3 px-lg-5">
                 Зареєструватись
             </button>
+
         </form>
 
     </div>

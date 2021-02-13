@@ -5,9 +5,9 @@
         <form>
             <div class="input-group  my-3">
                 <label for="signin_login" class=" pt-2 text-white label">Логін:</label>
-                <input type="text" class="form-control input mx-3" id="signin_login"/></div>
-            <div class="input-group  my-3"><label for="signin_pass" class="pt-2 text-white label">Пароль:</label>
-                <input type="password" class="form-control input mx-3" id="signin_pass"/>
+                <input type="email" class="form-control input mx-3" id="signin_login"/></div>
+            <div class="input-group  my-3"><label for="signin_pass" class="pt-2 text-white label" >Пароль:</label>
+                <input type="password" class="form-control input mx-3" id="signin_pass" minlength="8" />
             </div>
             <button type="submit" class="btn btn-outline-warning float-right border-yellow my-3 mx-3 px-lg-5">Вхід
             </button>

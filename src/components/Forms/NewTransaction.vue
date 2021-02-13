@@ -9,10 +9,93 @@
         <b-collapse id="collapse-1" class="opened-spoiler mx-0 p-0">
             <b-card class="card-body px-4">
                 <form>
-                    <!--TODO Bo-->
-                    <button type=button class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
-                        транзакцію
-                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <div >
+                                <div class="form-group card card-body">
+                                    <label for="transaction" >Назва транзакції</label>
+                                    <input type="text" class="form-control col-lg-12" id="transaction">
+                                </div>
+                                <div>
+                                    <label for="transaction" class="col-12">Тип транзакції</label>
+                                    <div class="my-3 mx-3">
+                                        <div class="form-check form-check-inline col-3">
+                                            <input class="form-check-input " type="radio" name="exampleRadios" id="transaction_outcome" value="option1" checked>
+                                            <label class="form-check-label" for="transaction_outcome">
+                                               Витрата
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-3 mx-3">
+                                            <input class="form-check-input" type="radio" name="exampleRadios" id="transaction_income" value="option2">
+                                            <label class="form-check-label" for="transaction_income">
+                                                Прибуток
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mx-3 my-3">
+                                    <label for="transaction" >Кошти</label>
+                                    <div class="input-group ">
+
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input type="number" class="form-control col-lg-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            <div >
+                                <label for="transaction" class=" col-lg-12">Категорія</label>
+                                <div class="btn-group float-left col-lg-12">
+                                    <button type="button" class="btn btn-default dropdown-toggle border" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Категорію не обрано
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button">Категорія1</button>
+                                        <button class="dropdown-item" type="button">Категорія2</button>
+                                        <button class="dropdown-item" type="button">Категорія3</button>
+                                    </div>
+                            </div>
+                            </div>
+
+                        </div>
+                        <div class="vl "></div>
+
+                        <div class="col">
+                            <div >
+                                <div class="card card-body">
+                                    <div class="my-3">
+                                        <label for="remote_transaction" >Відкласти транзакцію</label>
+                                        <div id="remote_transaction">
+                                            <!-- //TODO: Soljia, pleasee add this on-off icon -->
+                                        </div>
+                                    </div>
+                                    <div class="my-3">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="inputDate" class="text-secondary">Встановити дату:</label>
+                                                <input type="date" class="form-control" id="inputDate">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="repeatDate" class="text-secondary">Повторювати щомісяця</label>
+                                                <input type="date" class="form-control" id="repeatDate">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <button type=button class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
+                            транзакцію
+                        </button>
+                    </div>
                 </form>
             </b-card>
         </b-collapse>
@@ -79,5 +162,10 @@
     .icon-holder svg {
         height: 100%!important;
         width: auto;
+    }
+    .vl {
+        border-left: 3px solid lightgrey ;
+        height: 400px;
+
     }
 </style>
