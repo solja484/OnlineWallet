@@ -46,6 +46,7 @@
         background: #FAFAFA;
         border-radius: 0 !important;
         position: fixed;
+        z-index: 2;
     }
 
     .header-left {
