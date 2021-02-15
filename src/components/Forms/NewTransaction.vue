@@ -14,7 +14,7 @@
                             <div>
                                 <div class="form-group  mx-3 mb-3">
                                     <label for="transaction">Назва транзакції</label>
-                                    <input type="text" class="form-control col-md-12 input-sm" id="transaction">
+                                    <input type="text" class="form-control col-md-12 input-sm" id="transaction" required="required">
                                 </div>
                                 <div class="form-group mx-3 mb-3">
                                     <label for="transaction" >Тип транзакції</label>
@@ -41,7 +41,7 @@
                                         <div class="input-group-prepend ">
                                             <span class="input-group-text">₴</span>
                                         </div>
-                                        <input type="number" class="form-control col-md-12">
+                                        <input type="number" class="form-control col-md-12" required="required">
                                     </div>
                                 </div>
                                 <div class="form-group mx-3 mb-3">
@@ -61,7 +61,7 @@
                                     <div class="form-group mt-3 mb-2">
                                         <div class="custom-control custom-switch ">
                                             <input type="checkbox" class="custom-control-input"
-                                                   id="remote_transaction">
+                                                   id="remote_transaction" >
                                             <label class="custom-control-label"
                                                    for="remote_transaction">Відкласти транзакцію</label>
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="form-group mt-3 mb-2">
                                             <div class="form-group">
                                                 <label for="inputDate" >Встановити дату:</label>
-                                                <input type="date" class="form-control" id="inputDate">
+                                                <input type="date" class="form-control" id="inputDate" required="required">
                                             </div>
                                     </div>
                                     <hr>
@@ -77,7 +77,7 @@
                                             <div >
                                                 <label for="repeatDate" >Повторювати
                                                     щомісяця</label>
-                                                <input type="date" class="form-control" id="repeatDate">
+                                                <input type="date" class="form-control" id="repeatDate" required="required">
                                             </div>
                                     </div>
                                 </div>
