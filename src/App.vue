@@ -5,9 +5,18 @@
 </template>
 
 <script>
-
     export default {
-        name: "App"
+        computed : {
+            isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+        },
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => {
+                        this.$router.push('/auth')
+                    })
+            }
+        },
     }
 </script>
 

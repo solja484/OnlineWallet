@@ -1,34 +1,33 @@
 <template>
 
     <div class="body mb-4">
-
         <b-button v-b-toggle.collapse-1 class="closed-spoiler px-4 input-group" variant="outlined-light">
             Нова транзакція
             <span class="icon-holder"><b-icon-plus></b-icon-plus></span>
         </b-button>
         <b-collapse id="collapse-1" class="opened-spoiler mx-0 p-0">
             <b-card class="my-card-body p-1">
-                <form>
+                <form class="transaction" @submit.prevent="transaction">
                     <div class="row p-0">
                         <div class="col p-0">
                             <div>
                                 <div class="form-group  mx-3 mb-3">
                                     <label for="transaction">Назва транзакції</label>
-                                    <input type="text" class="form-control col-md-12 input-sm" id="transaction" required="required">
+                                    <input v-model="transaction_name" type="text" class="form-control col-md-12 input-sm" id="transaction" required="required">
                                 </div>
                                 <div class="form-group mx-3 mb-3">
                                     <label for="transaction" >Тип транзакції</label>
                                     <div>
                                         <div class="form-check form-check-inline col-md-3">
-                                            <input class="form-check-input " type="radio" name="exampleRadios"
-                                                   id="transaction_outcome" value="option1" checked>
+                                            <input v-model="transaction_outcome" class="form-check-input " type="radio" name="exampleRadios"
+                                                   id="transaction_outcome" value="outcome">
                                             <label class="form-check-label" for="transaction_outcome">
                                                 Витрата
                                             </label>
                                         </div>
                                         <div class="form-check form-check-inline col-md-3 mx-3">
-                                            <input class="form-check-input" type="radio" name="exampleRadios"
-                                                   id="transaction_income" value="option2">
+                                            <input v-model="transaction_income" class="form-check-input" type="radio" name="exampleRadios"
+                                                   id="transaction_income" value="income">
                                             <label class="form-check-label" for="transaction_income">
                                                 Прибуток
                                             </label>
@@ -41,12 +40,12 @@
                                         <div class="input-group-prepend ">
                                             <span class="input-group-text">₴</span>
                                         </div>
-                                        <input type="number" class="form-control col-md-12" required="required">
+                                        <input v-model="transaction_sum" type="number" class="form-control col-md-12" required="required">
                                     </div>
                                 </div>
                                 <div class="form-group mx-3 mb-3">
                                     <label for="category" class="  ">Категорія</label>
-                                    <select class="custom-select p-2 " id="category">
+                                    <select v-model="category" class="custom-select p-2 " id="category" required>
                                         <option value="1">Категорія1</option>
                                         <option value="2">Категорія2</option>
                                         <option value="3">Категорія3</option>
@@ -60,7 +59,7 @@
                                 <div class="px-3">
                                     <div class="form-group mt-3 mb-2">
                                         <div class="custom-control custom-switch ">
-                                            <input type="checkbox" class="custom-control-input"
+                                            <input v-model="remote_transaction" type="checkbox" class="custom-control-input"
                                                    id="remote_transaction" >
                                             <label class="custom-control-label"
                                                    for="remote_transaction">Відкласти транзакцію</label>
@@ -69,15 +68,15 @@
                                     <div class="form-group mt-3 mb-2">
                                             <div class="form-group">
                                                 <label for="inputDate" >Встановити дату:</label>
-                                                <input type="date" class="form-control" id="inputDate" required="required">
+                                                <input v-model="inputDate" type="date" class="form-control" id="inputDate" required="required">
                                             </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
                                             <div >
-                                                <label for="repeatDate" >Повторювати
+                                                <label  for="repeatDate" >Повторювати
                                                     щомісяця</label>
-                                                <input type="date" class="form-control" id="repeatDate" required="required">
+                                                <input v-model="repeatDate" type="date" class="form-control" id="repeatDate" required="required">
                                             </div>
                                     </div>
                                 </div>
@@ -85,7 +84,9 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <button type=button class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
+                      <!--  <button type=button class="btn btn-outline-warning m-0 text-white btn-orange btn-block">
+                        </button> -->
+                        <button type="submit" class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
                             транзакцію
                         </button>
                     </div>
@@ -99,8 +100,37 @@
     import {BCollapse, BButton, BCard, BIconPlus} from 'bootstrap-vue';
 
     export default {
-        name: "NewTransaction",
-        components: {BCollapse, BButton, BCard, BIconPlus}
+        data(){
+            return {
+                transaction_name : "",
+                transaction_income: "",
+                transaction_outcome: "",
+                transaction_sum: "",
+                category:"",
+                remote_transaction: "",
+                inputDate: "",
+                repeatDate: ""
+            }
+        },
+        methods: {
+            transaction: function () {
+                let data = {
+                    transaction_name : this.transaction_name,
+                    transaction_income : this.transaction_income,
+                    transaction_outcome : this.transaction_outcome,
+                    transaction_sum : this.transaction_sum,
+                    category: this.category,
+                    remote_transaction: this.remote_transaction,
+                    inputDate :this.inputDate,
+                    repeatDate : this.repeatDate
+
+                }
+                this.$store.dispatch('transaction', data)
+                    .then(() => this.$router.push('/'))
+                    .catch(err => console.log(err))
+            }
+        },
+        components: {BCollapse, BButton, BCard, BIconPlus},
     }
 </script>
 

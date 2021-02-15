@@ -2,23 +2,36 @@
     <div class="p-5 login-bg">
         <h4 class="px-2 text-white">Уже є акаунт?</h4>
         <hr class="red-line">
-        <form>
+        <form class="login" @submit.prevent="login">
             <div class="input-group  my-3">
                 <label for="signin_login" class=" pt-2 text-white label">Логін:</label>
-                <input type="email" class="form-control input mx-3" id="signin_login" required="required" /></div>
+                <input v-model="email" type="email" class="form-control input mx-3" id="signin_login"  required="required" /></div>
             <div class="input-group  my-3"><label for="signin_pass" class="pt-2 text-white label" >Пароль:</label>
-                <input type="password" class="form-control input mx-3" id="signin_pass" minlength="8" required="required"/>
+                <input v-model="password" type="password" class="form-control input mx-3" id="signin_pass" minlength="8" required="required"/>
             </div>
             <button type="submit" class="btn btn-outline-warning float-right border-yellow my-3 mx-3 px-lg-5">Вхід
             </button>
         </form>
-
     </div>
 </template>
 
 <script>
     export default {
-        name: "Login"
+        data(){
+            return {
+                email : "",
+                password : ""
+            }
+        },
+        methods: {
+            login: function () {
+                let email = this.email
+                let password = this.password
+                this.$store.dispatch('login', { email, password })
+                    .then(() => this.$router.push('/'))
+                    .catch(err => console.log(err))
+            }
+        }
     }
 </script>
 
