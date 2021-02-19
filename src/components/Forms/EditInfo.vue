@@ -1,9 +1,7 @@
 <template>
 
     <div>
-        <h4 class="px-2 text-center"  >Змінити дані користувача</h4>
-        <hr class="red-line">
-        <div class="p-5 login-bg">
+        <div class="px-2 py-4 login-bg">
             <form @submit.prevent="changeName">
                 <div class="form-group">
                     <label for="change_nickname" class="font-weight-bold">Ім'я користувача</label>
@@ -13,7 +11,7 @@
                     <label for="email" class="font-weight-bold">Електронна пошта</label>
                     <input v-model="email" type="email" class="form-control col-lg-12" id="email" placeholder="Current email" required="required">
                 </div>
-                <button type="submit" class="btn btn-warning text-black float-left border-red col-lg-6 my-3 text-white">
+                <button type="submit" class="btn btn-warning text-black border-red col-lg-6 my-3 text-white">
                     Зберегти
                 </button>
 
@@ -24,6 +22,7 @@
 
 <script>
     export default {
+        name:"EditInfo",
         data(){
             return {
                 name : "",
@@ -35,8 +34,8 @@
                     name: this.name,
                     email: this.email,
                     password: this.password
-                }
-                this.$store.dispatch('changeName', data)
+                };
+                this.$store.authModule.dispatch('changeName', data)
                     .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
             }

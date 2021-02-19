@@ -1,5 +1,5 @@
 <template>
-    <div class="body">
+    <div class="body mb-4">
         <p v-if="page=='settings'" class="bold px-5 pt-3 pb-0 text-center">Налаштування</p>
         <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴3456</span>
         </p>
@@ -28,7 +28,6 @@
 <style scoped>
     .body {
         background: #FFF;
-        min-height: 100vh;
         width: 100%;
     }
 

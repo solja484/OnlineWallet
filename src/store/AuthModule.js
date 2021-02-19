@@ -1,27 +1,16 @@
-import Vue from 'vue'
-import Vuex, {Store} from "vuex";
 import axios from "axios";
-import {CurrentPage} from "@/models/entities/CurrentPage";
-import {LogState} from "@/models/entities/LogPage";
-Vue.use(Vuex);
 
-
-const store = new Store({
-    state: {
+class AuthModule  {
+    state = {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: {},
-        currentPage:CurrentPage.OUTCOMES,
-        logState:LogState.UPCOMING
-    },
-    getters: {
+        user: {}
+    };
+    getters = {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
-        currentPage:  state =>state.currentPage,
-        logState:state=>state.logState
-
-    },
-    actions: {
+    };
+    actions = {
         login({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request');
@@ -101,38 +90,25 @@ const store = new Store({
         },
         changePassword({commit}, user) {
             return new Promise((resolve, reject) => {
-                commit('auth_request');
+                commit('auth_request')
                 axios({url: 'http://localhost:8080/settings', data: user, method: 'POST'})
                     .then(resp => {
-                        const token = resp.data.token;
-                        const user = resp.data.user;
-                        localStorage.setItem('token', token);
-                        axios.defaults.headers.common['Authorization'] = token;
-                        commit('auth_success', token, user);
-                        resolve(resp);
+                        const token = resp.data.token
+                        const user = resp.data.user
+                        localStorage.setItem('token', token)
+                        axios.defaults.headers.common['Authorization'] = token
+                        commit('auth_success', token, user)
+                        resolve(resp)
                     })
                     .catch(err => {
-                        commit('auth_error', err);
-                        localStorage.removeItem('token');
-                        reject(err);
+                        commit('auth_error', err)
+                        localStorage.removeItem('token')
+                        reject(err)
                     })
             })
-        },
-        changeCurrentPage({ commit }, currentPage) {
-            commit("setCurrentPage", currentPage);
-        },
-        changeLogState({ commit }, newLogState) {
-            commit("setLogState", newLogState);
         }
-    },
-    mutations: {
-        setCurrentPage(state, currentPage) {
-            state.currentPage = currentPage;
-        },
-        setLogState(state, newLogState){
-            state.logState=newLogState;
-            console.log(state.logState);
-        },
+    };
+    mutations = {
         auth_request(state) {
             state.status = 'loading'
         },
@@ -140,8 +116,6 @@ const store = new Store({
             state.status = 'success';
             state.token = token;
             state.user = user;
-            state.currentPage=CurrentPage.OUTCOMES;
-            state.logState=LogState.UPCOMING;
         },
         auth_error(state) {
             state.status = 'error';
@@ -149,11 +123,8 @@ const store = new Store({
         logout(state) {
             state.status = '';
             state.token = '';
-            state.currentPage=CurrentPage.AUTH;
-            state.logState=LogState.IDLE;
         }
+    };
 
-    }
-});
-export default store;
-
+};
+export default new AuthModule();

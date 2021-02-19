@@ -3,22 +3,24 @@
         <h1 class="currency_sign">
             <fa-icon icon="hryvnia"></fa-icon>
         </h1>
-        <router-link to="/calendar" class="menu-icon calendar-icon"
-                     :class="{menuIconActive: active == 'calendar'}">
+        <a @click="setCurrentPage(calendar)" class="menu-icon calendar-icon"
+                     :class="{menuIconActive: currentPage == calendar}">
             <b-icon-calendar4-week/>
-        </router-link>
-        <router-link to="/settings" class="menu-icon settings-icon"
-                     :class="{menuIconActive: active == 'settings'}">
+        </a>
+        <a @click="setCurrentPage(settings)" class="menu-icon settings-icon"
+                     :class="{menuIconActive: currentPage == settings}">
             <b-icon-gear/>
-        </router-link>
-        <router-link to="/auth" class="menu-icon exit-icon">
+        </a>
+        <a @click="setCurrentPage(auth)" class="menu-icon exit-icon">
             <b-icon-box-arrow-right/>
-        </router-link>
+        </a>
     </div>
 </template>
 
 <script>
     import {BIconBoxArrowRight, BIconCalendar4Week, BIconGear} from 'bootstrap-vue'
+    import {LogState} from "@/models/entities/LogPage";
+    import {CurrentPage} from "@/models/entities/CurrentPage";
 
     export default {
         name: "Menu",
@@ -27,7 +29,30 @@
             BIconCalendar4Week,
             BIconGear
         },
-        props: ['active']
+        props: ['active'],
+        data(){
+            return {
+
+                currentPage:this.$store.getters['currentPage'],
+                calendar:CurrentPage.CALENDAR,
+                settings:CurrentPage.SETTINGS,
+                auth: CurrentPage.AUTH
+            }
+        },
+        methods:{
+
+            setCurrentPage: function (newPage) {
+                this.$store.dispatch('changeCurrentPage', newPage)
+                    .then(()=> {
+                        this.$router.push('/'+newPage);
+                        this.currentPage = this.$store.getters['currentPage'];
+                        if(this.currentPage==this.auth||this.currentPage==this.calendar)
+                            this.$store.dispatch('changeLogState', LogState.IDLE)
+
+                    })
+                    .catch(err => console.log(err))
+            }
+        }
 
     }
 </script>

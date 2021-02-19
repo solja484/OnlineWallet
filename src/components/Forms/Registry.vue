@@ -29,12 +29,12 @@
 
 <script>
     export default {
+        name:"Registry",
         data(){
             return {
                 name : "",
                 email : "",
                 password : "",
-
             }
         }, methods: {
             register: function () {
@@ -42,8 +42,8 @@
                     name: this.name,
                     email: this.email,
                     password: this.password
-                }
-                this.$store.dispatch('register', data)
+                };
+                this.$store.authModule.dispatch('register', data)
                     .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
             }

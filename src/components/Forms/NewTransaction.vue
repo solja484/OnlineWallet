@@ -20,7 +20,7 @@
                                     <div>
                                         <div class="form-check form-check-inline col-md-3">
                                             <input v-model="transaction_outcome" class="form-check-input " type="radio" name="exampleRadios"
-                                                   id="transaction_outcome" value="outcome">
+                                                   id="transaction_outcome" value="outcome" checked>
                                             <label class="form-check-label" for="transaction_outcome">
                                                 Витрата
                                             </label>
@@ -84,8 +84,6 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                      <!--  <button type=button class="btn btn-outline-warning m-0 text-white btn-orange btn-block">
-                        </button> -->
                         <button type="submit" class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
                             транзакцію
                         </button>
@@ -100,6 +98,7 @@
     import {BCollapse, BButton, BCard, BIconPlus} from 'bootstrap-vue';
 
     export default {
+        name:"NewTransaction",
         data(){
             return {
                 transaction_name : "",
@@ -124,8 +123,8 @@
                     inputDate :this.inputDate,
                     repeatDate : this.repeatDate
 
-                }
-                this.$store.dispatch('transaction', data)
+                };
+                this.$store.authModule.dispatch('transaction', data)
                     .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
             }

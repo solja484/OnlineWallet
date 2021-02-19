@@ -2,7 +2,6 @@
     <div>
         <Menu active="none"></Menu>
         <Header active="incomes" transactions="upcoming"></Header>
-
         <div class="justify-content-between align-top">
             <div class="left-block">
                 <NewTransaction></NewTransaction>
@@ -20,6 +19,7 @@
     import Transactions from '@/components/Basic/Transactions.vue'
     import InfoField from "@/components/Basic/InfoField";
     import NewTransaction from "@/components/Forms/NewTransaction";
+
 
     export default {
         name: "Incomes",
