@@ -3,6 +3,7 @@ import Vuex, {Store} from "vuex";
 import axios from "axios";
 import {CurrentPage} from "@/models/entities/CurrentPage";
 import {LogState} from "@/models/entities/LogPage";
+
 Vue.use(Vuex);
 
 
@@ -11,14 +12,20 @@ const store = new Store({
         status: '',
         token: localStorage.getItem('token') || '',
         user: {},
-        currentPage:CurrentPage.OUTCOMES,
-        logState:LogState.UPCOMING
+        currentPage: CurrentPage.OUTCOMES,
+        logState: LogState.UPCOMING,
+        categories: [{
+            name: "test category",
+            icon: "fa-university",
+            outcome: true
+        }]
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
-        currentPage:  state =>state.currentPage,
-        logState:state=>state.logState
+        currentPage: state => state.currentPage,
+        logState: state => state.logState,
+        categories: state => state.categories
 
     },
     actions: {
@@ -118,19 +125,35 @@ const store = new Store({
                     })
             })
         },
-        changeCurrentPage({ commit }, currentPage) {
+        changeCurrentPage({commit}, currentPage) {
             commit("setCurrentPage", currentPage);
         },
-        changeLogState({ commit }, newLogState) {
+        changeLogState({commit}, newLogState) {
             commit("setLogState", newLogState);
+        },
+        getCategories({commit}) {
+            try {
+                axios
+                    .get('')
+                    .then(data => {
+                        commit('setCategories', data);
+                        console.log(data)
+                    })
+
+            } catch (err) {
+                console.error(err);
+            }
         }
     },
     mutations: {
+        setCategories(state, data) {
+            data.forEach(d => state.categories.push(d))
+        },
         setCurrentPage(state, currentPage) {
             state.currentPage = currentPage;
         },
-        setLogState(state, newLogState){
-            state.logState=newLogState;
+        setLogState(state, newLogState) {
+            state.logState = newLogState;
             console.log(state.logState);
         },
         auth_request(state) {
@@ -140,8 +163,8 @@ const store = new Store({
             state.status = 'success';
             state.token = token;
             state.user = user;
-            state.currentPage=CurrentPage.OUTCOMES;
-            state.logState=LogState.UPCOMING;
+            state.currentPage = CurrentPage.OUTCOMES;
+            state.logState = LogState.UPCOMING;
         },
         auth_error(state) {
             state.status = 'error';
@@ -149,8 +172,8 @@ const store = new Store({
         logout(state) {
             state.status = '';
             state.token = '';
-            state.currentPage=CurrentPage.AUTH;
-            state.logState=LogState.IDLE;
+            state.currentPage = CurrentPage.AUTH;
+            state.logState = LogState.IDLE;
         }
 
     }

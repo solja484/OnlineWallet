@@ -1,11 +1,11 @@
 <template>
     <div class="vertical-menu gradient">
         <h1 class="currency_sign">
-            <fa-icon icon="hryvnia"></fa-icon>
+            ₴
         </h1>
         <a @click="setCurrentPage(calendar)" class="menu-icon calendar-icon"
                      :class="{menuIconActive: currentPage == calendar}">
-            <b-icon-calendar4-week/>
+           <i class="fa fa-calendar fa-lg"/>
         </a>
         <a @click="setCurrentPage(settings)" class="menu-icon settings-icon"
                      :class="{menuIconActive: currentPage == settings}">
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import {BIconBoxArrowRight, BIconCalendar4Week, BIconGear} from 'bootstrap-vue'
+    import {BIconBoxArrowRight, BIconGear} from 'bootstrap-vue'
     import {LogState} from "@/models/entities/LogPage";
     import {CurrentPage} from "@/models/entities/CurrentPage";
 
@@ -26,13 +26,11 @@
         name: "Menu",
         components: {
             BIconBoxArrowRight,
-            BIconCalendar4Week,
             BIconGear
         },
         props: ['active'],
         data(){
             return {
-
                 currentPage:this.$store.getters['currentPage'],
                 calendar:CurrentPage.CALENDAR,
                 settings:CurrentPage.SETTINGS,
@@ -40,7 +38,6 @@
             }
         },
         methods:{
-
             setCurrentPage: function (newPage) {
                 this.$store.dispatch('changeCurrentPage', newPage)
                     .then(()=> {
@@ -72,8 +69,9 @@
     }
 
     .currency_sign {
+        font-family:Calibri;
         padding-top: 20px;
-        font-size: 46px;
+        font-size: 48px;
         font-weight: 800;
         text-align: center;
     }
@@ -85,7 +83,9 @@
         position: fixed;
         color: black;
         text-align: center;
+        cursor: pointer;
     }
+
 
     .menuIconActive {
         color: white;

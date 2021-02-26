@@ -46,9 +46,7 @@
                                 <div class="form-group mx-3 mb-3">
                                     <label for="category" class="  ">Категорія</label>
                                     <select v-model="category" class="custom-select p-2 " id="category" required>
-                                        <option value="1">Категорія1</option>
-                                        <option value="2">Категорія2</option>
-                                        <option value="3">Категорія3</option>
+                                        <option v-for="c in categories" :key="c.name" :value="c.name">{{c.name}}</option>
                                     </select></div>
                             </div>
 
@@ -108,7 +106,8 @@
                 category:"",
                 remote_transaction: "",
                 inputDate: "",
-                repeatDate: ""
+                repeatDate: "",
+                categories:this.$store.getters['categories']
             }
         },
         methods: {
@@ -129,7 +128,7 @@
                     .catch(err => console.log(err))
             }
         },
-        components: {BCollapse, BButton, BCard, BIconPlus},
+        components: {BCollapse, BButton, BCard, BIconPlus}
     }
 </script>
 
