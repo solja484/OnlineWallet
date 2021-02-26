@@ -1,12 +1,12 @@
 <template>
-    <div class="px-5 py-3">
-        STATISTIC
+    <div>
+        <h1>This page is protected by auth</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: "StatisticsBlock"
+        name: "Secure"
     }
 </script>
 

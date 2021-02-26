@@ -5,7 +5,7 @@
         <div class="justify-content-between align-top">
             <div class="left-block">
                 <NewTransaction></NewTransaction>
-                <InfoField page="stats"></InfoField>
+                <InfoField page=""></InfoField>
             </div>
             <Transactions></Transactions>
         </div>
@@ -19,6 +19,7 @@
     import Transactions from '@/components/Basic/Transactions.vue'
     import InfoField from "@/components/Basic/InfoField";
     import NewTransaction from "../components/Forms/NewTransaction";
+    import CurrentPage from "../models/entities/CurrentPage";
 
     export default {
         name: "Statistic",

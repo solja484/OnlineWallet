@@ -1,38 +1,70 @@
 <template>
     <nav class=" header justify-content-between ">
         <div class="header-left nav nav-fill">
-            <router-link to="/" class="nav-link text-dark btn btn-outline-warning active-left header-item"
-                         :class="{activeLeft: active == 'outcomes',
-                         inactive:active!='outcomes'}">
+            <a class="nav-link text-dark btn btn-outline-warning active-left header-item"
+                         @click="setCurrentPage(outcomes)"
+                         :class="{activeLeft: currentPage == outcomes,
+                         inactive:currentPage!=outcomes}">
                 Витрати
-            </router-link>
-            <router-link to="/incomes" class="nav-link text-dark btn btn-outline-warning header-item"
-                         :class="{activeLeft: active == 'incomes',
-                         inactive:active!='incomes'}">
+            </a>
+            <a  @click="setCurrentPage(incomes)" class="nav-link text-dark btn btn-outline-warning header-item"
+                         :class="{activeLeft: currentPage == incomes,
+                         inactive:currentPage!=incomes}">
                 Доходи
-            </router-link>
-            <router-link to="/statistic" class="nav-link text-dark btn btn-outline-warning header-item"
-                         :class="{activeLeft: active == 'statistic',
-                         inactive:active!='statistic'}">
+            </a>
+            <a class="nav-link text-dark btn btn-outline-warning header-item"
+                         @click="setCurrentPage(statistic)"
+                         :class="{activeLeft: currentPage == statistic,
+                         inactive:currentPage!=statistic}">
                 Статистика
-            </router-link>
+            </a>
         </div>
-        <div class="header-right nav nav-fill " v-if="transactions!='none'">
+        <div class="header-right nav nav-fill " v-if="currentLogState!=idle">
             <a class="nav-link text-dark btn btn-outline-danger header-item"
-                         :class="{activeRight: transactions == 'upcoming',
-                         inactive:transactions!='upcoming'}">Заплановані</a>
+                         :class="{activeRight: currentLogState == upcoming,
+                         inactive:currentLogState!=upcoming}" @click="setLogState(upcoming)">Заплановані</a>
             <a class="nav-link text-dark btn btn-outline-danger header-item"
-                         :class="{activeRight: transactions == 'recent',
-                         inactive:transactions!='recent'}">Журнал</a>
+                         :class="{activeRight: currentLogState == recent,
+                         inactive:currentLogState!=recent}" @click="setLogState(recent)">Журнал</a>
 
         </div>
     </nav>
 </template>
 
 <script>
+    import {LogState} from "@/models/entities/LogPage";
+    import {CurrentPage} from "@/models/entities/CurrentPage";
+
     export default {
         name: "Header",
-        props: ['active','transactions']
+        props: ['active','transactions'],
+        data(){
+            return {
+                upcoming:LogState.UPCOMING,
+                recent:LogState.RECENT,
+                idle:LogState.IDLE,
+                currentLogState:this.$store.getters['logState'],
+                currentPage:this.$store.getters['currentPage'],
+                outcomes:CurrentPage.OUTCOMES,
+                incomes:CurrentPage.INCOMES,
+                statistic: CurrentPage.STATISTIC
+            }
+        },
+        methods:{
+            setLogState: function (newLogState) {
+                this.$store.dispatch('changeLogState', newLogState)
+                    .then(() => this.currentLogState=this.$store.getters['logState'])
+                    .catch(err => console.log(err))
+            },
+            setCurrentPage: function (newPage) {
+                this.$store.dispatch('changeCurrentPage', newPage)
+                    .then(()=> {
+                        this.$router.push('/'+newPage);
+                        this.currentPage = this.$store.getters['currentPage'];
+                    })
+                    .catch(err => console.log(err))
+            }
+        }
     }
 </script>
 
@@ -46,6 +78,7 @@
         background: #FAFAFA;
         border-radius: 0 !important;
         position: fixed;
+        z-index: 2;
     }
 
     .header-left {
@@ -71,6 +104,6 @@
     }
 
     .activeRight {
-        border-color: #CC0000;
+        border-color: #CD0000;
     }
 </style>
