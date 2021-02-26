@@ -134,7 +134,7 @@ const store = new Store({
         getCategories({commit}) {
             try {
                 axios
-                    .get('')
+                    .get('localhost:8080/category/all')
                     .then(data => {
                         commit('setCategories', data);
                         console.log(data)
