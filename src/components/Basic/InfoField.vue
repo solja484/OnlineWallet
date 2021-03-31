@@ -1,7 +1,7 @@
 <template>
     <div class="body mb-4">
         <p v-if="page=='settings'" class="bold px-5 pt-3 pb-0 text-center">Налаштування</p>
-        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴3456</span>
+        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴{{balance}}</span>
         </p>
         <hr class="line mx-4 my-2">
         <IncomesBlock v-if="page=='incomes'"></IncomesBlock>
@@ -20,12 +20,17 @@
     export default {
         name: "InfoField",
         components: {SettingsBlock, IncomesBlock, StatisticsBlock, OutcomesBlock},
-        props: ['page']
+        props: ['page'],
+        computed:{
+            balance:function(){
+                return this.$store.getters['state/user'].balance
+            }
+        }
     }
 
 </script>
 
-<style scoped>
+<style >
     .body {
         background: #FFF;
         width: 100%;
@@ -38,5 +43,11 @@
     .line {
         border-color: #FE9D04;
         border-width: 1.5px;
+    }
+
+
+
+    .flex{
+        display: inline-flex;
     }
 </style>

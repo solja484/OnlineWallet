@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Menu active="calendar"></Menu>
-        <Header active="none" transactions="none"></Header>
+        <Menu></Menu>
+        <Header></Header>
         <div class="body pt-4 justify-content-between">
             <div class="py-3 px-5 calendar-card">
                 <h2 class="sprint-header">Sprint 1</h2>
@@ -22,9 +22,15 @@
             <div class="py-3 px-5 calendar-card">
                 <h2 class="sprint-header">Sprint 2</h2>
                 <hr>
-                <ul class="empty">Розробка веб-застосунку:
-                    <li>Перегляд витрачених коштів за категоріями</li>
-                    <li>Авторизація</li>
+                <ul class="success">
+                    Розробка веб-застосунку:
+                    <li>Деплой фронтенду</li>
+                    <li>Деплой бекенду</li>
+                    <li>Авторизація </li>
+                </ul>
+                <ul class="empty">
+                    <li>Наповнення бази даних інформацією</li>
+                    <li>Відображення інформації з бд (коректне виконання всіх GET запитів)</li>
                     <li>Редагування налаштувань користувача</li>
                     <li>Створення миттєвої транзакції обох типів</li>
                     <li>Створення відкладених транзакцій</li>

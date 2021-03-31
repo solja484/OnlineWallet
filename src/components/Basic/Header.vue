@@ -37,14 +37,13 @@
 
     export default {
         name: "Header",
-        props: ['active','transactions'],
         data(){
             return {
                 upcoming:LogState.UPCOMING,
                 recent:LogState.RECENT,
                 idle:LogState.IDLE,
-                currentLogState:this.$store.getters['logState'],
-                currentPage:this.$store.getters['currentPage'],
+                currentLogState:this.$store.getters['state/logState'],
+                currentPage:this.$store.getters['state/currentPage'],
                 outcomes:CurrentPage.OUTCOMES,
                 incomes:CurrentPage.INCOMES,
                 statistic: CurrentPage.STATISTIC
@@ -52,17 +51,17 @@
         },
         methods:{
             setLogState: function (newLogState) {
-                this.$store.dispatch('changeLogState', newLogState)
-                    .then(() => this.currentLogState=this.$store.getters['logState'])
+                this.$store.dispatch('state/changeLogState', newLogState)
+                    .then(() => this.currentLogState=this.$store.getters['state/logState'])
                     .catch(err => console.log(err))
             },
             setCurrentPage: function (newPage) {
-                this.$store.dispatch('changeCurrentPage', newPage)
+                this.$store.dispatch('state/changeCurrentPage', newPage)
                     .then(()=> {
                         this.$router.push('/'+newPage);
-                        this.currentPage = this.$store.getters['currentPage'];
+                        this.currentPage = this.$store.getters['state/currentPage'];
                         if(this.currentLogState==LogState.IDLE)
-                            this.$store.dispatch('changeLogState', LogState.UPCOMING);
+                            this.$store.dispatch('state/changeLogState', LogState.UPCOMING);
                     })
                     .catch(err => console.log(err))
             }

@@ -14,16 +14,16 @@
     export default {
         name:"App",
         computed : {
-            isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+            isLoggedIn : function(){ return this.$store.getters['auth/isLoggedIn']}
         },
         methods: {
             logout: function () {
-                this.$store.dispatch('logout')
+                this.$store.dispatch('auth/logout')
                     .then(() => {
                         this.$router.push('/auth')
                     })
             }
-        },
+        }
     }
 </script>
 

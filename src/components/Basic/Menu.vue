@@ -28,10 +28,9 @@
             BIconBoxArrowRight,
             BIconGear
         },
-        props: ['active'],
         data(){
             return {
-                currentPage:this.$store.getters['currentPage'],
+                currentPage:this.$store.getters['state/currentPage'],
                 calendar:CurrentPage.CALENDAR,
                 settings:CurrentPage.SETTINGS,
                 auth: CurrentPage.AUTH
@@ -39,13 +38,13 @@
         },
         methods:{
             setCurrentPage: function (newPage) {
-                this.$store.dispatch('changeCurrentPage', newPage)
+                this.$store.dispatch('state/changeCurrentPage', newPage)
                     .then(()=> {
                         this.$router.push('/'+newPage);
-                        this.currentPage = this.$store.getters['currentPage'];
+                        this.currentPage = this.$store.getters['state/currentPage'];
                         if(this.currentPage==this.auth||this.currentPage==this.calendar)
-                            this.$store.dispatch('changeLogState', LogState.IDLE);
-                        else this.$store.dispatch('changeLogState', LogState.UPCOMING);
+                            this.$store.dispatch('state/changeLogState', LogState.IDLE);
+                        else this.$store.dispatch('state/changeLogState', LogState.UPCOMING);
 
                     })
                     .catch(err => console.log(err))

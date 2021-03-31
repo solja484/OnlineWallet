@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Menu active="settings"></Menu>
-        <Header active="none" transactions="upcoming"></Header>
+        <Menu></Menu>
+        <Header></Header>
         <div class="justify-content-between align-top">
             <div class="left-block">
                 <InfoField page="settings"></InfoField>
@@ -19,12 +19,8 @@
 
     export default {
         name: "Settings",
-        components: {
-            Transactions,
-            InfoField,
-            Menu,
-            Header
-        }
+        components: {Transactions, InfoField, Menu, Header},
+
     }
 </script>
 

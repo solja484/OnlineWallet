@@ -1,9 +1,9 @@
 <template>
     <div class="transactions-body scrollbar-gradient">
-        <TransactionCard></TransactionCard>
-        <TransactionCard></TransactionCard>
-        <ScheduledCard></ScheduledCard><ScheduledCard></ScheduledCard>
-
+        <div v-for="t in transactions" :key="t.id">
+            <TransactionCard v-if="t.schtransactionid==null" :data="t"></TransactionCard>
+            <ScheduledCard v-else :data="t"></ScheduledCard>
+        </div>
     </div>
 </template>
 
@@ -12,11 +12,22 @@
     import ScheduledCard from "@/components/Nested/ScheduledCard";
     export default {
         name: "Transactions",
-        components: {ScheduledCard, TransactionCard}
+        components: {ScheduledCard, TransactionCard},
+        computed:{
+            loading:function(){
+                return this.$store.getters['transaction/loading']
+            },
+            transactions:function(){
+                return this.$store.getters['transaction/transactions'];
+            }
+        },
+        mounted(){
+           this.$store.dispatch('transaction/fetchUserTransactions');
+        }
     }
 </script>
 
-<style >
+<style>
     .transactions-body{
         margin:8% 5% 0 0;
         width: 25%;

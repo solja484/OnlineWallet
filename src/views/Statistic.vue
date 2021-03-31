@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Menu active="none"></Menu>
+        <Menu></Menu>
         <Header active="statistic" transactions="upcoming"></Header>
         <div class="justify-content-between align-top">
             <div class="left-block">
@@ -19,16 +19,13 @@
     import Transactions from '@/components/Basic/Transactions.vue'
     import InfoField from "@/components/Basic/InfoField";
     import NewTransaction from "../components/Forms/NewTransaction";
-    import CurrentPage from "../models/entities/CurrentPage";
+    import {CurrentPage} from "../models/entities/CurrentPage";
 
     export default {
         name: "Statistic",
-        components: {
-            NewTransaction,
-            InfoField,
-            Menu,
-            Header,
-            Transactions
+        components: {NewTransaction, InfoField, Menu, Header, Transactions},
+        mounted() {
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.STATISTIC)
         }
     }
 </script>
