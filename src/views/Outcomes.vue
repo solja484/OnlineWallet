@@ -25,7 +25,7 @@
         name: 'Home',
         components: {InfoField, Menu, Header, OutcomesBlock, Transactions, NewTransaction},
         mounted() {
-            this.$store.dispatch('state/changeCurrentPage', CurrentPage.OUTCOMES)
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.OUTCOMES);
         }
     }
 </script>

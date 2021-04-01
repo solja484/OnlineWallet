@@ -25,7 +25,7 @@
         name: "Statistic",
         components: {NewTransaction, InfoField, Menu, Header, Transactions},
         mounted() {
-            this.$store.dispatch('state/changeCurrentPage', CurrentPage.STATISTIC)
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.STATISTIC);
         }
     }
 </script>

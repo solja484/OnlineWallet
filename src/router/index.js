@@ -12,7 +12,11 @@ const routes = [
   },
   {
     path: '/',
-    name: 'Outcomеs',
+    name: 'Outcomеs2',
+    component: Outcomes
+  },{
+    path: '/outcomes',
+    name: 'Outcomеs3',
     component: Outcomes
   },
   {

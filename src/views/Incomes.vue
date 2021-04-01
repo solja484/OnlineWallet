@@ -24,7 +24,7 @@
         name: "Incomes",
         components: {NewTransaction, InfoField, Menu, Header, Transactions},
         mounted() {
-            this.$store.dispatch('state/changeCurrentPage', CurrentPage.INCOMES)
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.INCOMES);
         }
     }
 </script>

@@ -1,9 +1,9 @@
 <template>
-    <div class="category-container m-4">
-        <i class="fa fa-lg fa-university" :class="category.icon"></i>
-        <p> {{category.name}}</p>
-        <p class="bold"> {{category.money}}</p>
-    </div>
+    <p class="text-center category-container m-4">
+        <i class="fa fa-lg fa-university text-gray" :class="category.icon"></i><br>
+        {{category.name}}<br>
+        <strong>{{category.name}}</strong>
+    </p>
 </template>
 
 <script>
@@ -14,7 +14,7 @@
 </script>
 
 <style scoped>
-    .category-container{
-        text-align: center;
+    .category-container {
+        text-align: center !important;
     }
 </style>

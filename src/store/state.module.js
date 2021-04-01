@@ -7,15 +7,15 @@ const stateModule = {
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: {"id":1,"password":"","login":"","balance":100.0,"name":"Andry"},
+        user: {"id": 1, "password": "", "login": "", "balance": 100.0, "name": "Andry"},
         currentPage: CurrentPage.OUTCOMES,
-        logState: LogState.UPCOMING,
+        logState: LogState.UPCOMING
     },
     getters: {
         isLoggedIn: state => !!state.token,
         status: state => state.status,
-        user:state=>state.user,
-        token:state=>state.token,
+        user: state => state.user,
+        token: state => state.token,
         currentPage: state => state.currentPage,
         logState: state => state.logState,
 
@@ -60,62 +60,39 @@ const stateModule = {
                     })
             })
         },
-        transaction({commit}, user) {
-            return new Promise((resolve, reject) => {
-                commit('auth_request');
-                axios({url: 'http://localhost:8080/main', data: user, method: 'POST'})
-                    .then(resp => {
-                        const token = resp.data.token;
-                        const user = resp.data.user;
-                        localStorage.setItem('token', token);
-                        axios.defaults.headers.common['Authorization'] = token;
-                        commit('auth_success', token, user);
-                        resolve(resp)
-                    })
-                    .catch(err => {
-                        commit('auth_error', err);
-                        localStorage.removeItem('token');
-                        reject(err)
-                    })
-            })
-        },
         changeName({commit}, user) {
-            return new Promise((resolve, reject) => {
-                commit('auth_request');
-                axios({url: 'http://localhost:8080/settings', data: user, method: 'POST'})
-                    .then(resp => {
-                        const token = resp.data.token;
-                        const user = resp.data.user;
-                        localStorage.setItem('token', token);
-                        axios.defaults.headers.common['Authorization'] = token;
-                        commit('auth_success', token, user);
-                        resolve(resp)
-                    })
-                    .catch(err => {
-                        commit('auth_error', err);
-                        localStorage.removeItem('token');
-                        reject(err)
-                    })
-            })
+            commit('auth_request');
+            axios.post('api/user/settings', user,)
+                .then(resp => {
+                    const token = resp.data.token;
+                    const user = resp.data.user;
+                    localStorage.setItem('token', token);
+                    axios.defaults.headers.common['Authorization'] = token;
+                    commit('auth_success', token, user);
+                    resolve(resp)
+                })
+                .catch(err => {
+                    commit('auth_error', err);
+                    localStorage.removeItem('token');
+                    reject(err)
+                })
         },
         changePassword({commit}, user) {
-            return new Promise((resolve, reject) => {
                 commit('auth_request');
-                axios({url: 'http://localhost:8080/settings', data: user, method: 'POST'})
+                axios.post('api/user/password',  user)
                     .then(resp => {
                         const token = resp.data.token;
-                        const user = resp.data.user;
                         localStorage.setItem('token', token);
                         axios.defaults.headers.common['Authorization'] = token;
-                        commit('auth_success', token, user);
+                        commit('auth_success',  token, resp.data.user);
                         resolve(resp);
                     })
                     .catch(err => {
                         commit('auth_error', err);
                         localStorage.removeItem('token');
-                        reject(err);
+                        console.log(err);
                     })
-            })
+
         },
         changeCurrentPage({commit}, currentPage) {
             commit("setCurrentPage", currentPage);

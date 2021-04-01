@@ -3,18 +3,13 @@ import axios from "axios";
 const categoryModule = {
     namespaced: true,
     state: {
-        categories: [{
-            name: "test category",
-            icon: "fa-university",
-            outcome: true
-        }],
+        categories: [],
         loading:false
-
     },
     getters: {
         categories: state => state.categories,
-        loading:state=>state.loading
-
+        loading:state=>state.loading,
+        all:state=>state.categories
     },
     actions: {
         fetchCategories({commit}) {
@@ -27,7 +22,6 @@ const categoryModule = {
                 })
                 .catch((err) => console.log(err))
                 .finally(() => commit("setLoading",false));
-
         }
     },
     mutations: {

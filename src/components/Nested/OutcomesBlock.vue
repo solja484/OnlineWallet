@@ -1,7 +1,7 @@
 <template>
-    <div class="px-5 py-3 flex" v-if="!loading">
-        <div  v-for="c in categories" :key="c.name">
-            <Category v-if="c.outcome" :category="c"></Category>
+    <div class="px-5 container " v-if="!loading">
+        <div class="row w-100">
+                <Category v-for="c in categories" :key="c.id" :category="c" class="text-center w-25"></Category>
         </div>
     </div>
 </template>
@@ -16,12 +16,9 @@
                 return this.$store.getters['category/loading']
             },
             categories:function(){
-                return this.$store.getters['category/categories'];
+                return this.$store.getters['category/categories'].filter(c=>c.outcome);
             }
         },
-        mounted(){
-            this.$store.dispatch('category/fetchCategories');
-        }
     }
 </script>
 

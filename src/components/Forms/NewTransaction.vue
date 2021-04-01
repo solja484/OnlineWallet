@@ -1,5 +1,4 @@
 <template>
-
     <div class="body mb-4">
         <b-button v-b-toggle.collapse-1 class="closed-spoiler px-4 input-group" variant="outlined-light">
             Нова транзакція
@@ -7,128 +6,139 @@
         </b-button>
         <b-collapse id="collapse-1" class="opened-spoiler mx-0 p-0">
             <b-card class="my-card-body p-1">
-                <form class="transaction" @submit.prevent="transaction">
-                    <div class="row p-0">
-                        <div class="col p-0">
-                            <div>
-                                <div class="form-group  mx-3 mb-3">
-                                    <label for="transaction">Назва транзакції</label>
-                                    <input v-model="transaction_name" type="text" class="form-control col-md-12 input-sm" id="transaction" required="required">
-                                </div>
-                                <div class="form-group mx-3 mb-3">
-                                    <label for="transaction" >Тип транзакції</label>
-                                    <div>
-                                        <div class="form-check form-check-inline col-md-3">
-                                            <input v-model="transaction_outcome" class="form-check-input " type="radio" name="exampleRadios"
-                                                   id="transaction_outcome" value="outcome" checked>
-                                            <label class="form-check-label" for="transaction_outcome">
-                                                Витрата
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline col-md-3 mx-3">
-                                            <input v-model="transaction_income" class="form-check-input" type="radio" name="exampleRadios"
-                                                   id="transaction_income" value="income">
-                                            <label class="form-check-label" for="transaction_income">
-                                                Прибуток
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group mx-3 mb-3 ">
-                                    <label for="transaction">Кошти</label>
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend ">
-                                            <span class="input-group-text">₴</span>
-                                        </div>
-                                        <input v-model="transaction_sum" type="number" class="form-control col-md-12" required="required">
-                                    </div>
-                                </div>
-                                <div class="form-group mx-3 mb-3">
-                                    <label for="category" class="  ">Категорія</label>
-                                    <select v-model="category" class="custom-select p-2 " id="category" required>
-                                        <option v-for="c in categories" :key="c.name" :value="c.name">{{c.name}}</option>
-                                    </select></div>
-                            </div>
-
-                        </div>
-                        <div class="vl "></div>
-                        <div class="col">
-                            <div>
-                                <div class="px-3">
-                                    <div class="form-group mt-3 mb-2">
-                                        <div class="custom-control custom-switch ">
-                                            <input v-model="remote_transaction" type="checkbox" class="custom-control-input"
-                                                   id="remote_transaction" >
-                                            <label class="custom-control-label"
-                                                   for="remote_transaction">Відкласти транзакцію</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mt-3 mb-2">
-                                            <div class="form-group">
-                                                <label for="inputDate" >Встановити дату:</label>
-                                                <input v-model="inputDate" type="date" class="form-control" id="inputDate" required="required">
-                                            </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                            <div >
-                                                <label  for="repeatDate" >Повторювати
-                                                    щомісяця</label>
-                                                <input v-model="repeatDate" type="date" class="form-control" id="repeatDate" required="required">
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <form class="transaction row p-0" @submit.prevent="newtransaction">
+                    <div class="col p-0">
+                        <b-form-group
+                                class="mx-3 mb-3 input-group-sm"
+                                label="Назва транзакції"
+                                label-for="transaction-input">
+                            <b-form-input id="transaction-input"
+                                          v-model="transaction_name"
+                                          type="text"
+                                          size="sm"
+                                          required></b-form-input>
+                        </b-form-group>
+                        <b-form-group label="Тип транзакції" class="mx-3 mb-3" v-slot="{ ariaDescribedby }">
+                            <b-form-radio-group
+                                    id="radio-group-2"
+                                    v-model="transaction_type"
+                                    :aria-describedby="ariaDescribedby">
+                                <b-form-radio value="1">Витрата</b-form-radio>
+                                <b-form-radio value="2">Прибуток</b-form-radio>
+                            </b-form-radio-group>
+                        </b-form-group>
+                        <b-form-group
+                                class="mx-3 mb-3 input-group-sm"
+                                label="Кошти"
+                                label-for="money-input">
+                            <b-input-group prepend="₴" class="" size="sm">
+                                <b-form-input id="money-input" v-model="transaction_sum" type="number"
+                                              class="form-control "></b-form-input>
+                            </b-input-group>
+                        </b-form-group>
+                        <b-form-group
+                                class="mx-3 mb-3 input-group-sm"
+                                label="Категорія"
+                                label-for="category_select">
+                            <b-form-select id="category_select" v-model="category" size="sm">
+                                <b-form-select-option value="null" disabled>Не обрано</b-form-select-option>
+                                <b-form-select-option v-for="c in categories" :key="c.name" :value="c.name">
+                                    {{c.name}}
+                                </b-form-select-option>
+                            </b-form-select>
+                        </b-form-group>
                     </div>
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-outline-warning m-0 text-white btn-orange btn-block">Додати
-                            транзакцію
-                        </button>
+                    <div class="vl"></div>
+                    <div class="col">
+                        <div class="px-3">
+                            <b-form-group class=" mt-3 mb-2">
+                                <div class="custom-control custom-switch ">
+                                    <input v-model="schedule_transaction" type="checkbox"
+                                           class="custom-control-input"
+                                           id="remote_transaction">
+                                    <label class="custom-control-label"
+                                           for="remote_transaction">Відкласти транзакцію</label>
+                                </div>
+                            </b-form-group>
+                            <b-form-group
+                                    class=" input-group-sm"
+                                    label="Встановити дату:"
+                                    label-for="date_input">
+                                <b-form-input v-model="scheduledate" type="date" id="date_input"
+                                              size="sm" :disabled="!schedule_transaction"></b-form-input>
+                            </b-form-group>
+                            <b-form-group>
+                                <b-form-checkbox
+                                        v-model="repeatDate" class="mb-2 mr-sm-2 mb-sm-0"
+                                        :disabled="!schedule_transaction">
+                                    Повторювати щомісяця
+                                </b-form-checkbox>
+                            </b-form-group>
+                        </div>
                     </div>
                 </form>
+                <div class="mt-4">
+                    <button @click="newtransaction" class="btn btn-warning m-0 text-white btn-orange btn-block"
+                            :disabled="transaction_name.length==0||transaction_sum==null||category==null
+                    ||(schedule_transaction&&scheduledate==null)">
+                        Додати транзакцію
+                    </button>
+                </div>
             </b-card>
         </b-collapse>
     </div>
 </template>
 
 <script>
-    import {BCollapse, BButton, BCard, BIconPlus} from 'bootstrap-vue';
+    import {
+        BCollapse, BButton, BCard, BIconPlus, BFormRadio, BFormGroup, BFormInput, BFormRadioGroup,
+        BInputGroup, BFormSelect, BFormSelectOption, BFormCheckbox
+    } from 'bootstrap-vue';
 
     export default {
-        name:"NewTransaction",
-        data(){
+        name: "NewTransaction",
+        components: {
+            BFormSelect, BCollapse, BButton, BCard, BIconPlus, BFormSelectOption,
+            BFormRadio, BFormRadioGroup, BFormInput, BFormGroup, BInputGroup, BFormCheckbox
+        },
+        data() {
             return {
-                transaction_name : "",
-                transaction_income: "",
-                transaction_outcome: "",
+                transaction_type: 1,
+                transaction_name: "",
                 transaction_sum: "",
-                category:"",
-                remote_transaction: "",
-                inputDate: "",
-                repeatDate: "",
-                categories:this.$store.getters['categories']
+                category: null,
+                schedule_transaction: false,
+                scheduledate: null,
+                repeatDate: false,
+                categories: this.$store.getters['category/all'].filter(c => c.outcome)
             }
         },
+        computed: {},
         methods: {
-            transaction: function () {
+            newtransaction: function () {
                 let data = {
-                    transaction_name : this.transaction_name,
-                    transaction_income : this.transaction_income,
-                    transaction_outcome : this.transaction_outcome,
-                    transaction_sum : this.transaction_sum,
-                    category: this.category,
-                    remote_transaction: this.remote_transaction,
-                    inputDate :this.inputDate,
-                    repeatDate : this.repeatDate
-
+                    comment: this.transaction_name,
+                    amount: this.transaction_sum,
+                    isincome: this.transaction_type==2,
+                    categoryid: this.category,
+                    date:new Date(),
+                    schedule_transaction: this.schedule_transaction,
+                    scheduledate: this.scheduledate,
+                    repeat: this.repeatDate
                 };
-                this.$store.authModule.dispatch('transaction', data)
-                    .then(() => this.$router.push('/'))
-                    .catch(err => console.log(err))
+                this.$store.dispatch('transaction/newTransaction', data)
+
             }
         },
-        components: {BCollapse, BButton, BCard, BIconPlus}
+        watch: {
+            transaction_type: function () {
+                console.log(this.scheduledate);
+                if (this.transaction_type == 1)
+                    this.categories = this.$store.getters['category/all'].filter(c => c.outcome);
+                else this.categories = this.$store.getters['category/all'].filter(c => !c.outcome);
+            }
+        }
+
     }
 </script>
 
@@ -167,7 +177,9 @@
         font-family: 'Igra Sans';
         font-size: 14px;
     }
-
+    .btn-orange:disabled{
+        background: #FE9D04;
+    }
     .btn-orange:hover {
         background: #ffab02;
     }
