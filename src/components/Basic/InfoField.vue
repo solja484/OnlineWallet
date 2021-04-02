@@ -35,6 +35,7 @@
         },
         mounted(){
             this.$store.dispatch('category/fetchCategories');
+            this.$store.dispatch('category/fetchUserExpenses');
         }
     }
 

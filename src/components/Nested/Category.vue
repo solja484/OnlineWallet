@@ -1,6 +1,6 @@
 <template>
     <p class="text-center category-container m-4">
-        <i class="fa fa-lg fa-university text-gray" :class="category.icon"></i><br>
+        <i class="fa fa-lg text-gray" :class="category.icon"></i><br>
         {{category.name}}<br>
         <strong>{{category.name}}</strong>
     </p>
