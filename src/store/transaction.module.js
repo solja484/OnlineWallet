@@ -40,9 +40,11 @@ const transactionModule = {
         newTransaction({commit, rootGetters, dispatch}, data) {
             commit('setLoading', true);
             data['userid'] = rootGetters['state/user'].id;
-            axios.post('/api/transaction/new', data).then(() =>
-                dispatch('fetchUserTransactions')
-            ).catch((err) => console.log(err))
+            axios
+                .post('/api/transaction', data)
+                .then(() =>
+                    dispatch('fetchUserTransactions')
+                ).catch((err) => console.log(err))
                 .finally(commit('setLoading', false));
         }
     },
