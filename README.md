@@ -5,20 +5,30 @@
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+#### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
+#### Compiles and minifies for production
 ```
 yarn build
 ```
-
-### Run your unit tests
+#### Run your unit tests
 ```
 yarn test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Deploy on heroku
+```
+docker build -t onlinewallet:latest .
+```
+```
+heroku login
+heroku container:login
+```
+```
+heroku container:push web -a onlinewallet2021
+```
+```
+heroku container:release web -a onlinewallet2021
+```
