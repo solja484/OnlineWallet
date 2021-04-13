@@ -9,7 +9,7 @@
             <div class="input-group  my-3"><label for="signin_pass" class="pt-2 text-white label" >Пароль:</label>
                 <input v-model="password" type="password" class="form-control input mx-3" id="signin_pass" minlength="8" required="required"/>
             </div>
-            <button type="submit" class="btn btn-outline-warning float-right border-yellow my-3 mx-3 px-lg-5">Вхід
+            <button type="submit" ref="my-button" class="btn btn-outline-warning float-right border-yellow my-3 mx-3 px-lg-5">Вхід
             </button>
         </form>
     </div>
@@ -46,13 +46,11 @@
         background: rgba(255, 255, 255, 0.3);
         height: 80vh;
     }
-
     .red-line {
 
         border-color: #CC0000;
         border-width: 1.5px;
     }
-
     .label {
         text-align: right;
         float: left !important;

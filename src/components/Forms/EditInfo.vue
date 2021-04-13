@@ -1,6 +1,4 @@
 <template>
-
-    <div>
         <div class="px-2 py-4 login-bg">
             <form @submit.prevent="changeName">
                 <div class="form-group">
@@ -17,7 +15,6 @@
 
             </form>
         </div>
-    </div>
 </template>
 
 <script>

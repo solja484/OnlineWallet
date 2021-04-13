@@ -11,6 +11,7 @@
     export default {
         name: "Category",
         props: ['category'],
+
         computed: {
             expenses: function () {
                 const exp = this.$store.getters['category/expenses'].find(e => e.categoryid == this.category.id);

@@ -118,7 +118,7 @@
             newtransaction: function () {
                 let data = {
                     comment: this.transaction_name,
-                    amount: this.transaction_sum,
+                    amount: this.transyaction_sum,
                     isincome: this.transaction_type==2,
                     categoryid: this.category,
                     date:new Date(),
