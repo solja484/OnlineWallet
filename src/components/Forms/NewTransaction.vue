@@ -64,7 +64,7 @@
                                     class=" input-group-sm"
                                     label="Встановити дату:"
                                     label-for="date_input">
-                                <b-form-input v-model="scheduledate" type="date" id="date_input"
+                                <b-form-input v-model="schedule_date" type="date" id="date_input"
                                               size="sm" :disabled="!schedule_transaction"></b-form-input>
                             </b-form-group>
                             <b-form-group>
@@ -80,7 +80,7 @@
                 <div class="mt-4">
                     <button @click="newtransaction" class="btn btn-warning m-0 text-white btn-orange btn-block"
                             :disabled="transaction_name.length==0||transaction_sum==null||category==null
-                    ||(schedule_transaction&&scheduledate==null)">
+                    ||(schedule_transaction&&schedule_date==null)">
                         Додати транзакцію
                     </button>
                 </div>
@@ -108,7 +108,7 @@
                 transaction_sum: "",
                 category: null,
                 schedule_transaction: false,
-                scheduledate: null,
+                schedule_date: null,
                 repeatDate: false,
                 categories: this.$store.getters['category/all'].filter(c => c.outcome)
             }
@@ -118,12 +118,12 @@
             newtransaction: function () {
                 let data = {
                     comment: this.transaction_name,
-                    amount: this.transyaction_sum,
+                    amount: this.transaction_sum,
                     isincome: this.transaction_type==2,
                     categoryid: this.category,
                     date:new Date(),
                     schedule_transaction: this.schedule_transaction,
-                    scheduledate: this.scheduledate,
+                    scheduledate: this.schedule_date,
                     repeat: this.repeatDate
                 };
                 this.$store.dispatch('transaction/newTransaction', data)
@@ -132,10 +132,10 @@
         },
         watch: {
             transaction_type: function () {
-                console.log(this.scheduledate);
+                console.log(this.schedule_date);
                 if (this.transaction_type == 1)
-                    this.categories = this.$store.getters['category/all'].filter(c => c.outcome);
-                else this.categories = this.$store.getters['category/all'].filter(c => !c.outcome);
+                    this.categories = this.$store.getters['category/outcomes'];
+                else this.categories = this.$store.getters['category/incomes'];
             }
         }
 

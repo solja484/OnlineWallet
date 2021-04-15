@@ -17,7 +17,7 @@
                 return this.$store.getters['category/loading']
             },
             categories: function () {
-                return this.$store.getters['category/categories'].filter(c=>!c.outcome);
+                return this.$store.getters['category/incomes']
             }
         },
 

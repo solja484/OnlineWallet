@@ -1,17 +1,32 @@
 <template>
     <div class="transactions-body scrollbar-gradient" v-if="!loading">
-        <div v-for="t in transactions" :key="t.id">
-            <TransactionCard v-if="t.schtransactionid==null" :data="t"></TransactionCard>
-            <ScheduledCard v-else :data="t"></ScheduledCard>
+        <div v-if="logState==upcoming">
+
+            <div class="text-center">
+                <img v-if="transactions.length==0" src="../../assets/emptyList.png" alt="empty list"
+                     class="w-50 "/>
+                <p v-if="transactions.length==0" class="empty-alert">Немає запланованих транзакцій</p>
+            </div>
+            <ScheduledCard v-for="t in transactions" :key="t.id" :data="t"></ScheduledCard>
+        </div>
+        <div v-else>
+
+            <div class="text-center">
+                <img v-if="transactions.length==0" src="../../assets/emptyList.png" alt="empty list"
+                     class="w-50 "/>
+                <p v-if="transactions.length==0">Журнал транзакцій порожній</p>
+            </div>
+            <TransactionCard v-for="t in transactions" :key="t.id" :data="t"></TransactionCard>
         </div>
     </div>
     <div class="transactions-body scrollbar-gradient" v-else>
         <div class="card mb-2">
-            <b-skeleton-img ></b-skeleton-img>
+            <b-skeleton-img></b-skeleton-img>
         </div>
         <div class="card mb-2">
             <b-skeleton-img></b-skeleton-img>
-        </div>  <div class="card mb-2">
+        </div>
+        <div class="card mb-2">
             <b-skeleton-img></b-skeleton-img>
         </div>
     </div>
@@ -25,7 +40,7 @@
 
     export default {
         name: "Transactions",
-        components: {ScheduledCard, TransactionCard,BSkeletonImg},
+        components: {ScheduledCard, TransactionCard, BSkeletonImg},
         data() {
             return {
                 upcoming: LogState.UPCOMING,
@@ -40,18 +55,21 @@
                 return this.$store.getters['transaction/loading']
             },
             transactions: function () {
-                if(this.logState==this.upcoming)
-                return this.$store.getters['transaction/upcoming'];
+                if (this.logState == this.upcoming)
+                    return this.$store.getters['transaction/upcoming'];
                 else return this.$store.getters['transaction/recent'];
             }
         },
         mounted() {
-            this.$store.dispatch('transaction/fetchUserTransactions');
+            if (this.logState == this.recent)
+                this.$store.dispatch('transaction/fetchUserTransactions');
+            else if (this.logState == this.upcoming)
+                this.$store.dispatch('transaction/fetchUpcomingTransactions');
         }
     }
 </script>
 
-<style >
+<style>
     /*@import "../../assets/scss/colors.scss";*/
     .transactions-body {
         margin: 8% 5% 0 0;
@@ -61,6 +79,11 @@
         right: 0;
         position: fixed;
         overflow: auto;
+    }
+
+    .empty-alert {
+        font-size: 14px;
+        font-family: 'Igra Sans', serif;
     }
 
     .textOutcome {

@@ -7,7 +7,7 @@ const stateModule = {
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: {"id": 1, "password": "", "login": "", "balance": 100.0, "name": "Andry"},
+        user: {"id": 1, "password": "", "login": "", "balance": 365.0, "name": "Mary"},
         currentPage: CurrentPage.OUTCOMES,
         logState: LogState.UPCOMING
     },
@@ -18,7 +18,6 @@ const stateModule = {
         token: state => state.token,
         currentPage: state => state.currentPage,
         logState: state => state.logState,
-
     },
     actions: {
         login({commit}, user) {
@@ -32,7 +31,6 @@ const stateModule = {
                         axios.defaults.headers.common['Authorization'] = token;
                         commit('auth_success', token, user);
                         resolve(resp)
-
                     })
                     .catch(err => {
                         commit('auth_error');
@@ -60,6 +58,11 @@ const stateModule = {
                     })
             })
         },
+        updateBalance({commit,getters}) {
+            axios.get('/user/getBalance/'+getters.user.id)
+                .then((res) =>
+                    commit("setBalance", res))
+        },
         changeName({commit}, user) {
             commit('auth_request');
             axios.post('api/user/settings', user,)
@@ -78,20 +81,20 @@ const stateModule = {
                 })
         },
         changePassword({commit}, user) {
-                commit('auth_request');
-                axios.post('api/user/password',  user)
-                    .then(resp => {
-                        const token = resp.data.token;
-                        localStorage.setItem('token', token);
-                        axios.defaults.headers.common['Authorization'] = token;
-                        commit('auth_success',  token, resp.data.user);
-                        resolve(resp);
-                    })
-                    .catch(err => {
-                        commit('auth_error', err);
-                        localStorage.removeItem('token');
-                        console.log(err);
-                    })
+            commit('auth_request');
+            axios.post('api/user/password', user)
+                .then(resp => {
+                    const token = resp.data.token;
+                    localStorage.setItem('token', token);
+                    axios.defaults.headers.common['Authorization'] = token;
+                    commit('auth_success', token, resp.data.user);
+                    resolve(resp);
+                })
+                .catch(err => {
+                    commit('auth_error', err);
+                    localStorage.removeItem('token');
+                    console.log(err);
+                })
 
         },
         changeCurrentPage({commit}, currentPage) {
@@ -108,6 +111,9 @@ const stateModule = {
         setLogState(state, newLogState) {
             state.logState = newLogState;
             console.log(state.logState);
+        },
+        setBalance(state,balance){
+          state.user['balance']=balance;
         },
         auth_request(state) {
             state.status = 'loading'

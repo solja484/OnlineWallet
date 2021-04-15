@@ -1,5 +1,6 @@
 <template>
     <div class="card p-3 mb-2" :class="{borderOrange:data.scheduledTransaction.status!=1}">
+        <p>{{data}}</p>
         <p class="bold text-18 mb-0"
            :class="{textIncome: data.isincome, textOutcome:!data.isincome}">
             ₴{{data.amount}}
@@ -16,8 +17,8 @@
             <span>Дата та час</span>
             <span>{{data.date}}</span>
         </p>
-        <div class="nav justify-content-between d-inline-flex pt-1" v-if="logState==upcoming">
-            <button class="textIncome btn w-50" @click="accept">Підтвердити</button>
+        <div class="nav justify-content-between d-inline-flex pt-1">
+            <!--button class="textIncome btn w-50" @click="accept">Підтвердити</button-->
             <button class="textOutcome btn w-50" @click="decline">Відхилити</button>
         </div>
     </div>
@@ -46,10 +47,10 @@
         },
         methods: {
             accept: function () {
-                //TODO
+                this.$store.dispatch('acceptTransaction',this.data.id);
             },
             decline: function () {
-                //TODO
+                this.$store.dispatch('declineTransaction',this.data.id);
             }
         }
     }

@@ -5,7 +5,7 @@
         <div class="justify-content-between align-top">
             <div class="left-block">
                 <NewTransaction></NewTransaction>
-                <InfoField page=""></InfoField>
+                <InfoField page="stats"></InfoField>
             </div>
             <Transactions></Transactions>
         </div>

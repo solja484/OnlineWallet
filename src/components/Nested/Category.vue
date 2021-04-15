@@ -3,7 +3,7 @@
         <i class="fa fa-lg text-gray" :class="category.icon"></i><br>
         {{category.name}}<br>
         <strong :class="{textIncome: !category.outcome, textOutcome:category.outcome}">
-            {{expenses}}</strong>
+            {{sign}}{{category.total}}</strong>
     </p>
 </template>
 
@@ -13,9 +13,8 @@
         props: ['category'],
 
         computed: {
-            expenses: function () {
-                const exp = this.$store.getters['category/expenses'].find(e => e.categoryid == this.category.id);
-                return exp ? exp.total : "-";
+            sign:function () {
+                return this.category.outcome?"-":"+";
             }
         }
     }

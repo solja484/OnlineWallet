@@ -6,8 +6,12 @@ import Axios from 'vue-axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueApexCharts from 'vue-apexcharts'
 
-//Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+//Apex Charts diagrams
+Vue.use(VueApexCharts);
+Vue.component('apexchart', VueApexCharts);
+
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;

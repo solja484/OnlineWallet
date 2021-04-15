@@ -42,24 +42,34 @@
                 upcoming:LogState.UPCOMING,
                 recent:LogState.RECENT,
                 idle:LogState.IDLE,
-                currentLogState:this.$store.getters['state/logState'],
-                currentPage:this.$store.getters['state/currentPage'],
                 outcomes:CurrentPage.OUTCOMES,
                 incomes:CurrentPage.INCOMES,
                 statistic: CurrentPage.STATISTIC
             }
         },
+        computed:{
+            currentPage: function () {
+                return this.$store.getters['state/currentPage'];
+            },
+            currentLogState: function () {
+                return this.$store.getters['state/logState'];
+            }
+        },
         methods:{
             setLogState: function (newLogState) {
                 this.$store.dispatch('state/changeLogState', newLogState)
-                    .then(() => this.currentLogState=this.$store.getters['state/logState'])
+                    .then(() => {
+                        if(newLogState==this.recent)
+                            this.$store.dispatch('transaction/fetchUserTransactions');
+                        else if(newLogState==this.upcoming)
+                            this.$store.dispatch('transaction/fetchUpcomingTransactions');
+                    })
                     .catch(err => console.log(err))
             },
             setCurrentPage: function (newPage) {
                 this.$store.dispatch('state/changeCurrentPage', newPage)
                     .then(()=> {
                         this.$router.push('/'+newPage);
-                        this.currentPage = this.$store.getters['state/currentPage'];
                         if(this.currentLogState==LogState.IDLE)
                             this.$store.dispatch('state/changeLogState', LogState.UPCOMING);
                     })

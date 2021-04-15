@@ -7,7 +7,7 @@
         <p class="mb-3"> {{data.comment}}</p>
         <p class="nav justify-content-between text-14 text-gray mb-2">
             <span>Категорія</span>
-            <span><i class="fa fa-heart fa-sm" :class="category.icon"/>{{category.name}}</span>
+            <span><i class="fa fa-heart fa-sm" :class="category.icon"/> {{category.name}}</span>
         </p>
         <p class="nav justify-content-between text-14 text-gray">
             <span>Дата та час</span>

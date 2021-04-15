@@ -10,7 +10,10 @@
     link.rel = "stylesheet";
     link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
     head.appendChild(link);
-
+    const link2 = document.createElement("link");
+    link2.rel = "stylesheet";
+    link2.href= "https://unpkg.com/vue-chartisan@0.1.7/dist/vue-chartisan.min.css";
+    //head.appendChild(link2);
     export default {
         name:"App",
         computed : {
@@ -38,15 +41,15 @@
     }
 
     @font-face {
-        font-family: 'Merriweaher';
-        src: local('Merriweaher'), local('Merriweaher'),
+        font-family: 'Merriweather';
+        src: local('Merriweather'), local('Merriweather'),
         url('assets/Fonts/Merriweather-BoldItalic.ttf') format('truetype');
         font-weight: bold;
         font-style: italic;
     }
 
     h4{
-        font-family: 'Merriweaher';
+        font-family: 'Merriweather';
         font-style: italic;
         font-weight: bold;
         font-size: 18px;

@@ -4,25 +4,19 @@ const transactionModule = {
     namespaced: true,
     state: {
         transactions: [],
+        upcoming: [],
         loading: false
     },
     getters: {
         transactions: state => state.transactions,
         loading: state => state.loading,
-        upcoming(state) {
-            let date = new Date();
-            let month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
-            let day = date.getDate > 8 ? date.getDate() + "" : "0" + date.getDate();
-            let sqldate = date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes() + ":30";
-            return state.transactions.filter(t => t.date > sqldate);
-        },
+        upcoming: state => state.upcoming,
         recent(state) {
             let date = new Date();
             let month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
             let day = date.getDate > 8 ? date.getDate() + "" : "0" + date.getDate();
             let sqldate = date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes() + ":30";
             return state.transactions.filter(t => t.date <= sqldate);
-
         }
     },
     actions: {
@@ -31,8 +25,20 @@ const transactionModule = {
             axios.get('/api/transaction/getUserTransaction/'
                 + rootGetters['state/user'].id)
                 .then((res) => {
-                    console.log(res);
+                    console.log(res.data);
                     commit("setTransactions", res.data)
+                })
+                .catch((err) => console.log(err))
+                .finally(() => commit("setLoading", false));
+        },
+        fetchUpcomingTransactions({commit, rootGetters}) {
+            commit('setLoading', true);
+            console.log("userid", rootGetters['state/user'].id);
+            axios.get('/api/scheduletran/getUserTransaction/'
+                + rootGetters['state/user'].id)
+                .then((res) => {
+                    console.log(res.data);
+                    commit("setUpcomingTransactions", res.data)
                 })
                 .catch((err) => console.log(err))
                 .finally(() => commit("setLoading", false));
@@ -46,6 +52,16 @@ const transactionModule = {
                     dispatch('fetchUserTransactions')
                 ).catch((err) => console.log(err))
                 .finally(commit('setLoading', false));
+        },
+        declineTransaction({dispatch}, id) {
+            axios
+                .get('/api/scheduletran/decline/' + id)
+                .then(() => dispatch('fetchUpcomingTransactions'))
+        },
+        acceptTransaction({dispatch}, id) {
+            axios
+                .get('/api/scheduletran/accept/' + id)
+                .then(() => dispatch('fetchUpcomingTransactions'))
         }
     },
     mutations: {
@@ -54,6 +70,9 @@ const transactionModule = {
         },
         setTransactions(state, data) {
             state.transactions = data;
+        },
+        setUpcomingTransactions(state, data) {
+            state.upcoming = data;
         }
     }
 };
