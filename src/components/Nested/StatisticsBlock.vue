@@ -10,13 +10,9 @@
 </template>
 
 <script>
-    import {BarChart, PieChart} from 'vue-chartisan';
 
     export default {
         name: 'StatisticsBlock',
-        components: {
-            BarChart, PieChart
-        },
         data: function () {
             return {
                 colors: ['#890000', "#CC0000", "#E95700", "#FF9900",

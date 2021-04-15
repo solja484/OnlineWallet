@@ -20,10 +20,14 @@
     import Login from "@/components/Forms/Login";
     import Registry from "@/components/Forms/Registry";
     import {BIconEnvelopeOpenFill} from 'bootstrap-vue'
+    import {CurrentPage} from "@/models/entities/CurrentPage";
 
     export default {
         name: "Auth",
-        components: {Registry, Login, BIconEnvelopeOpenFill}
+        components: {Registry, Login, BIconEnvelopeOpenFill},
+        mounted() {
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.AUTH);
+        }
     }
 </script>
 

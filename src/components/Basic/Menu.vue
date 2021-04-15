@@ -30,22 +30,20 @@
         },
         data(){
             return {
-                currentPage:this.$store.getters['state/currentPage'],
                 calendar:CurrentPage.CALENDAR,
                 settings:CurrentPage.SETTINGS,
                 auth: CurrentPage.AUTH
             }
         },
         methods:{
+            currentPage: function (){return this.$store.getters['state/currentPage']},
             setCurrentPage: function (newPage) {
                 this.$store.dispatch('state/changeCurrentPage', newPage)
                     .then(()=> {
-                        this.$router.push('/'+newPage);
-                        this.currentPage = this.$store.getters['state/currentPage'];
-                        if(this.currentPage==this.auth||this.currentPage==this.calendar)
+                        if(newPage==this.auth||newPage==this.calendar)
                             this.$store.dispatch('state/changeLogState', LogState.IDLE);
                         else this.$store.dispatch('state/changeLogState', LogState.UPCOMING);
-
+                        this.$router.push('/'+newPage);
                     })
                     .catch(err => console.log(err))
             }

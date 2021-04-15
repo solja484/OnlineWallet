@@ -21,15 +21,16 @@ const categoryModule = {
         fetchCategories({commit,dispatch}) {
             commit("setLoading", true);
             axios
-                .get('/api/category/all')
+                .get('api/category/all')
                 .then(res => {
+                    console.log("RES",res);
                     dispatch('fetchUserExpenses',res.data).then(()=> commit("setLoading", false));
                 })
                 .catch((err) => console.log(err))
         },
         fetchUserExpenses({commit, rootGetters},categories) {
             axios
-                .get('/api/transaction/categorySum/' + rootGetters['state/user'].id)
+                .get('api/transaction/categorySum/' + rootGetters['state/user'].id)
                 .then(res => {
                     commit('setUserExpenses', {categories:categories, expenses:res.data});
                 })
@@ -51,7 +52,6 @@ const categoryModule = {
              state.incomes.forEach(function (element) {
                  const elem=state.expenses.find(c => c.categoryid == element.id);
                  element.total = elem?elem.total:0;
-                 console.log( element.class);
             });
             state.outcomes.forEach(function (element) {
                 const elem=state.expenses.find(c => c.categoryid == element.id);

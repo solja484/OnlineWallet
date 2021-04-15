@@ -16,10 +16,14 @@
     import Header from '@/components/Basic/Header.vue'
     import InfoField from "@/components/Basic/InfoField";
     import Transactions from "@/components/Basic/Transactions";
+    import {CurrentPage} from "@/models/entities/CurrentPage";
 
     export default {
         name: "Settings",
         components: {Transactions, InfoField, Menu, Header},
+        mounted() {
+            this.$store.dispatch('state/changeCurrentPage', CurrentPage.SETTINGS);
+        }
 
     }
 </script>

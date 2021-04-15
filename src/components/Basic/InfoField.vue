@@ -35,7 +35,7 @@
         },
         mounted(){
             this.$store.dispatch('category/fetchCategories');
-            this.$store.dispatch('state/updateBalance');
+         //   this.$store.dispatch('state/updateBalance');
         }
     }
 
