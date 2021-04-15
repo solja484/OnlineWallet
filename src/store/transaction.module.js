@@ -22,7 +22,7 @@ const transactionModule = {
     actions: {
         fetchUserTransactions({commit, rootGetters}) {
             commit('setLoading', true);
-            axios.get('/api/transaction/getUserTransaction/'
+            axios.get('https://online-wallet-01.herokuapp.com/transaction/getUserTransaction/'
                 + rootGetters['state/user'].id)
                 .then((res) => {
                     console.log(res.data);
@@ -34,7 +34,7 @@ const transactionModule = {
         fetchUpcomingTransactions({commit, rootGetters}) {
             commit('setLoading', true);
             console.log("userid", rootGetters['state/user'].id);
-            axios.get('/api/scheduletran/getUserTransaction/'
+            axios.get('https://online-wallet-01.herokuapp.com/scheduletran/getUserTransaction/'
                 + rootGetters['state/user'].id)
                 .then((res) => {
                     console.log(res.data);
@@ -47,7 +47,7 @@ const transactionModule = {
             commit('setLoading', true);
             data['userid'] = rootGetters['state/user'].id;
             axios
-                .post('/api/transaction', data)
+                .post('https://online-wallet-01.herokuapp.com/transaction', data)
                 .then(() =>
                     dispatch('fetchUserTransactions')
                 ).catch((err) => console.log(err))
@@ -55,12 +55,12 @@ const transactionModule = {
         },
         declineTransaction({dispatch}, id) {
             axios
-                .get('/api/scheduletran/decline/' + id)
+                .get('https://online-wallet-01.herokuapp.com/scheduletran/decline/' + id)
                 .then(() => dispatch('fetchUpcomingTransactions'))
         },
         acceptTransaction({dispatch}, id) {
             axios
-                .get('/api/scheduletran/accept/' + id)
+                .get('https://online-wallet-01.herokuapp.com/scheduletran/accept/' + id)
                 .then(() => dispatch('fetchUpcomingTransactions'))
         }
     },

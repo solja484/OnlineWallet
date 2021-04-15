@@ -21,7 +21,7 @@ const categoryModule = {
         fetchCategories({commit,dispatch}) {
             commit("setLoading", true);
             axios
-                .get('api/category/all')
+                .get('https://online-wallet-01.herokuapp.com/category/all')
                 .then(res => {
                     console.log("RES",res);
                     dispatch('fetchUserExpenses',res.data).then(()=> commit("setLoading", false));
@@ -30,7 +30,7 @@ const categoryModule = {
         },
         fetchUserExpenses({commit, rootGetters},categories) {
             axios
-                .get('api/transaction/categorySum/' + rootGetters['state/user'].id)
+                .get('https://online-wallet-01.herokuapp.com/transaction/categorySum/' + rootGetters['state/user'].id)
                 .then(res => {
                     commit('setUserExpenses', {categories:categories, expenses:res.data});
                 })

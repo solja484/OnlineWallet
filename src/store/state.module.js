@@ -23,7 +23,7 @@ const stateModule = {
         login({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request');
-                axios({url: 'http://localhost:8080/auth', data: user, method: 'POST'})
+                axios({url: 'https://online-wallet-01.herokuapp.com/auth', data: user, method: 'POST'})
                     .then(resp => {
                         const token = resp.data.token;
                         const user = resp.data.user;
@@ -42,7 +42,7 @@ const stateModule = {
         register({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request');
-                axios({url: 'http://localhost:8080/auth', data: user, method: 'POST'})
+                axios({url: 'https://online-wallet-01.herokuapp.com/auth', data: user, method: 'POST'})
                     .then(resp => {
                         const token = resp.data.token;
                         const user = resp.data.user;
@@ -59,13 +59,13 @@ const stateModule = {
             })
         },
         updateBalance({commit,getters}) {
-            axios.get('/user/getBalance/'+getters.user.id)
-                .then((res) =>
-                    commit("setBalance", res))
+            axios.get('https://online-wallet-01.herokuapp.com/user/getBalance/'+getters.user.id)
+                .then((res) =>{console.log("BALANCE",res);
+                    commit("setBalance", res.data.balance)})
         },
         changeName({commit}, user) {
             commit('auth_request');
-            axios.post('api/user/settings', user,)
+            axios.post('https://online-wallet-01.herokuapp.com/user/settings', user,)
                 .then(resp => {
                     const token = resp.data.token;
                     const user = resp.data.user;
@@ -82,7 +82,7 @@ const stateModule = {
         },
         changePassword({commit}, user) {
             commit('auth_request');
-            axios.post('api/user/password', user)
+            axios.post('https://online-wallet-01.herokuapp.com/user/password', user)
                 .then(resp => {
                     const token = resp.data.token;
                     localStorage.setItem('token', token);

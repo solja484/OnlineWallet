@@ -1,7 +1,7 @@
 <template>
     <div class="body mb-4" v-if="!loading">
         <p v-if="page=='settings'" class="bold px-5 pt-3 pb-0 text-center">Налаштування</p>
-        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>₴{{balance}}</span>
+        <p v-else class="nav bold justify-content-between px-5 pt-3 pb-0"><span>Поточний бюджет</span><span>{{getBalance}}</span>
         </p>
         <hr class="line mx-4 my-2">
         <IncomesBlock v-if="page=='incomes'"></IncomesBlock>
@@ -26,6 +26,10 @@
         components: {SettingsBlock, IncomesBlock, StatisticsBlock, OutcomesBlock,BSkeletonImg},
         props: ['page'],
         computed:{
+            getBalance:function(){
+              if(this.balance>=0) return '₴'+this.balance;
+              else return "-₴"+(this.balance*(-1))
+            },
             balance:function(){
                 return this.$store.getters['state/user'].balance
             },
@@ -35,7 +39,7 @@
         },
         mounted(){
             this.$store.dispatch('category/fetchCategories');
-         //   this.$store.dispatch('state/updateBalance');
+            this.$store.dispatch('state/updateBalance');
         }
     }
 
