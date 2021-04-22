@@ -42,7 +42,7 @@
                                 label-for="category_select">
                             <b-form-select id="category_select" v-model="category" size="sm">
                                 <b-form-select-option value="null" disabled>Не обрано</b-form-select-option>
-                                <b-form-select-option v-for="c in categories" :key="c.name" :value="c.name">
+                                <b-form-select-option v-for="c in categories" :key="c.id" :value="c.id">
                                     {{c.name}}
                                 </b-form-select-option>
                             </b-form-select>
@@ -64,8 +64,14 @@
                                     class=" input-group-sm"
                                     label="Встановити дату:"
                                     label-for="date_input">
-                                <b-form-input v-model="schedule_date" type="date" id="date_input"
-                                              size="sm" :disabled="!schedule_transaction"></b-form-input>
+                                <div class="row">
+                                    <b-form-input v-model="schedule_date" type="date" id="date_input"
+                                                  size="sm" :disabled="!schedule_transaction"
+                                                  class="col mx-2"></b-form-input>
+                                    <b-form-input v-model="schedule_time" type="time" id="time_input"
+                                                  size="sm" :disabled="!schedule_transaction"
+                                                  class="col mx-2"></b-form-input>
+                                </div>
                             </b-form-group>
                             <b-form-group>
                                 <b-form-checkbox
@@ -80,7 +86,7 @@
                 <div class="mt-4">
                     <button @click="newtransaction" class="btn btn-warning m-0 text-white btn-orange btn-block"
                             :disabled="transaction_name.length==0||transaction_sum==null||category==null
-                    ||(schedule_transaction&&schedule_date==null)">
+                    ||(schedule_transaction&&schedule_date==null&&schedule_time==null)">
                         Додати транзакцію
                     </button>
                 </div>
@@ -109,33 +115,64 @@
                 category: null,
                 schedule_transaction: false,
                 schedule_date: null,
+                schedule_time: null,
                 repeatDate: false,
-                categories: this.$store.getters['category/all'].filter(c => c.outcome)
             }
         },
-        computed: {},
+        computed: {
+            categories: function () {
+                if (this.transaction_type == 1)
+                    return this.$store.getters['category/outcomes'];
+                else return this.$store.getters['category/incomes'];
+            }
+        },
         methods: {
             newtransaction: function () {
-                let data = {
-                    comment: this.transaction_name,
-                    amount: this.transaction_sum,
-                    isincome: this.transaction_type==2,
-                    categoryid: this.category,
-                    date:new Date(),
-                    schedule_transaction: this.schedule_transaction,
-                    scheduledate: this.schedule_date,
-                    repeat: this.repeatDate
-                };
-                this.$store.dispatch('transaction/newTransaction', data)
+                let resDate = null;
+                if (this.schedule_transaction) {
+                    resDate = this.schedule_date + " " + this.schedule_time + ":00";
+                } else {
+                    const date = new Date();
+                    const month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
+                    const day = date.getDate() > 9 ? date.getDate() + "" : "0" + date.getDate();
+                    resDate = date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                }
+                if (this.schedule_transaction)
+                    this.$store.dispatch('transaction/newScheduledTransaction', {
+                        comment: this.transaction_name,
+                        amount: this.transaction_sum,
+                        isincome: this.transaction_type == 2,
+                        category: {id: this.category},
+                        user: {id: this.$store.getters['state/user'].id},
+                        schedule: this.repeatDate,
+                        nextsend: resDate,
+                        status: 2
+                    })
+                        .then(this.clearForm());
+                else
+                    this.$store.dispatch('transaction/newTransaction', {
+                        comment: this.transaction_name,
+                        amount: this.transaction_sum,
+                        isincome: this.transaction_type == 2,
+                        category: {id: this.category},
+                        user: {id: this.$store.getters['state/user'].id},
+                        date: resDate,
+                        scheduledTransaction:null,
+                        status: 2
+                    })
+                        .then(this.clearForm());
 
-            }
-        },
-        watch: {
-            transaction_type: function () {
-                console.log(this.schedule_date);
-                if (this.transaction_type == 1)
-                    this.categories = this.$store.getters['category/outcomes'];
-                else this.categories = this.$store.getters['category/incomes'];
+
+            },
+            clearForm: function () {
+                this.transaction_type = 1;
+                this.transaction_name = "";
+                this.transaction_sum = "";
+                this.category = null;
+                this.schedule_transaction = false;
+                this.schedule_date = null;
+                this.schedule_time = null;
+                this.repeatDate = false;
             }
         }
 
@@ -177,9 +214,11 @@
         font-family: 'Igra Sans';
         font-size: 14px;
     }
-    .btn-orange:disabled{
+
+    .btn-orange:disabled {
         background: #FE9D04;
     }
+
     .btn-orange:hover {
         background: #ffab02;
     }

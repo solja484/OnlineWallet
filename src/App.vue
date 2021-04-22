@@ -10,10 +10,6 @@
     link.rel = "stylesheet";
     link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
     head.appendChild(link);
-    const link2 = document.createElement("link");
-    link2.rel = "stylesheet";
-    link2.href= "https://unpkg.com/vue-chartisan@0.1.7/dist/vue-chartisan.min.css";
-    //head.appendChild(link2);
     export default {
         name:"App",
         computed : {
@@ -26,6 +22,9 @@
                         this.$router.push('/auth')
                     })
             }
+        },
+        mounted(){
+            //alert("Велике прохання не додавати текст кирилицею, адже в результаті отримаєте ????");
         }
     }
 </script>

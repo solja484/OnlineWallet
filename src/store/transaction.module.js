@@ -5,51 +5,47 @@ const transactionModule = {
     state: {
         transactions: [],
         upcoming: [],
+        recent:[],
         loading: false
     },
     getters: {
         transactions: state => state.transactions,
         loading: state => state.loading,
         upcoming: state => state.upcoming,
-        recent(state) {
-            let date = new Date();
-            let month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
-            let day = date.getDate > 8 ? date.getDate() + "" : "0" + date.getDate();
-            let sqldate = date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes() + ":30";
-            return state.transactions.filter(t => t.date <= sqldate);
-        }
+        recent:state=>state.recent
     },
     actions: {
         fetchUserTransactions({commit, rootGetters}) {
             commit('setLoading', true);
             axios.get('https://online-wallet-01.herokuapp.com/transaction/getUserTransaction/'
                 + rootGetters['state/user'].id)
-                .then((res) => {
-                    console.log(res.data);
-                    commit("setTransactions", res.data)
-                })
+                .then((res) =>   commit("setTransactions", res.data))
                 .catch((err) => console.log(err))
                 .finally(() => commit("setLoading", false));
         },
         fetchUpcomingTransactions({commit, rootGetters}) {
             commit('setLoading', true);
-            console.log("userid", rootGetters['state/user'].id);
             axios.get('https://online-wallet-01.herokuapp.com/scheduletran/getUserTransaction/'
                 + rootGetters['state/user'].id)
-                .then((res) => {
-                    console.log(res.data);
-                    commit("setUpcomingTransactions", res.data)
-                })
+                .then((res) => commit("setUpcomingTransactions", res.data))
                 .catch((err) => console.log(err))
                 .finally(() => commit("setLoading", false));
         },
         newTransaction({commit, rootGetters, dispatch}, data) {
             commit('setLoading', true);
-            data['userid'] = rootGetters['state/user'].id;
             axios
                 .post('https://online-wallet-01.herokuapp.com/transaction', data)
                 .then(() =>
                     dispatch('fetchUserTransactions')
+                ).catch((err) => console.log(err))
+                .finally(commit('setLoading', false));
+        },
+        newScheduledTransaction({commit, rootGetters, dispatch}, data) {
+            commit('setLoading', true);
+            axios
+                .post('https://online-wallet-01.herokuapp.com/scheduletran', data)
+                .then(() =>
+                    dispatch('fetchUpcomingTransactions')
                 ).catch((err) => console.log(err))
                 .finally(commit('setLoading', false));
         },
@@ -69,7 +65,7 @@ const transactionModule = {
             state.loading = load;
         },
         setTransactions(state, data) {
-            state.transactions = data;
+            state.recent = data;
         },
         setUpcomingTransactions(state, data) {
             state.upcoming = data;

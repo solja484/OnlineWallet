@@ -7,7 +7,7 @@ const stateModule = {
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: {"id": 1, "password": "", "login": "", "balance": 365.0, "name": "Mary"},
+        user: {id: 1, password: "user", login: "user", balance: 365.0, name: "Mary"},
         currentPage: CurrentPage.OUTCOMES,
         logState: LogState.UPCOMING
     },
@@ -110,10 +110,9 @@ const stateModule = {
         },
         setLogState(state, newLogState) {
             state.logState = newLogState;
-            console.log(state.logState);
         },
         setBalance(state,balance){
-          state.user['balance']=balance;
+          state.user.balance=balance;
         },
         auth_request(state) {
             state.status = 'loading'
