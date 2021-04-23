@@ -3,6 +3,8 @@
         <p class="bold text-18 mb-0"
            :class="{textIncome: data.isincome, textOutcome:!data.isincome}">
             ₴{{data.amount}}
+        <span class="float-right regular text-14 text-gray" v-if="data.scheduledTransaction">
+                <b-icon-calendar-check/>  </span>
         </p>
         <p class="mb-3"> {{data.comment}}</p>
         <p class="nav justify-content-between text-14 text-gray mb-2">
@@ -17,8 +19,11 @@
 </template>
 
 <script>
+    import {BIconCalendarCheck} from "bootstrap-vue";
+
     export default {
         name: "TransactionCard",
+        components:{BIconCalendarCheck},
         props:['data'],
         computed:{
             category:function () {

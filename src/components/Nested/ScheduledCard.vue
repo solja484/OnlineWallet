@@ -1,11 +1,13 @@
 <template>
-    <div class="card p-3 mb-2" :class="{borderOrange:data.status==1}">
+    <div class="card p-3 mb-2" :class="{borderOrange:currentDate>data.nextsend}">
         <p class="bold text-18 mb-0"
-           :class="{textIncome: data.isincome, textOutcome:!data.isincome}">
+           :class="{textIncome: !data.category.outcome, textOutcome:data.category.outcome}">
             ₴{{data.amount}}
             <span class="float-right regular text-14 text-gray" v-if="data.schedule">
                 <b-icon-arrow-clockwise/> щомісяця
             </span>
+            <span class="float-right regular text-14 text-gray" v-else>
+                <b-icon-calendar4/>  </span>
         </p>
         <p class="mb-3"> {{data.comment}}</p>
         <p class="nav justify-content-between text-14 text-gray mb-2">
@@ -17,19 +19,19 @@
             <span>{{data.nextsend}}</span>
         </p>
         <div class="nav justify-content-between d-inline-flex pt-1">
-            <button class="textIncome btn w-50" @click="accept">Підтвердити</button>
+            <button class="textIncome btn w-50" @click="accept" v-if="currentDate>data.nextsend">Підтвердити</button>
             <button class="textOutcome btn w-50" @click="decline">Відхилити</button>
         </div>
     </div>
 </template>
 
 <script>
-    import {BIconArrowClockwise, BIconCalendarCheck} from "bootstrap-vue";
+    import {BIconArrowClockwise, BIconCalendar4} from "bootstrap-vue";
     import {LogState} from "@/models/entities/LogPage";
 
     export default {
         name: "ScheduledCard",
-        components: {BIconArrowClockwise, BIconCalendarCheck},
+        components: {BIconArrowClockwise, BIconCalendar4},
         props: ['data'],
         data() {
             return {
@@ -44,7 +46,9 @@
                 const date = new Date();
                 const month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
                 const day = date.getDate() > 9 ? date.getDate() + "" : "0" + date.getDate();
-                return date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes()+":00";
+                const hours = date.getHours() > 9 ? date.getHours() + "" : "0" + date.getHours();
+                const mins = date.getMinutes() > 9 ? date.getMinutes() + "" : "0" + date.getMinutes();
+                return date.getFullYear() + '-' + month + '-' + day + ' ' + hours + ":" + mins+":00";
             }
         },
         methods: {
@@ -56,7 +60,7 @@
             }
         },
         updated(){
-            if(this.currentDate<this.data.nextsend)
+            if(this.currentDate>this.data.nextsend)
                 this.accept();
         }
     }

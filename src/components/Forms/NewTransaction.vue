@@ -135,7 +135,9 @@
                     const date = new Date();
                     const month = date.getMonth() > 8 ? (date.getMonth() + 1) + "" : "0" + (date.getMonth() + 1);
                     const day = date.getDate() > 9 ? date.getDate() + "" : "0" + date.getDate();
-                    resDate = date.getFullYear() + '-' + month + '-' + day + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                    const hours = date.getHours() > 9 ? date.getHours() + "" : "0" + date.getHours();
+                    const mins = date.getMinutes() > 9 ? date.getMinutes() + "" : "0" + date.getMinutes();
+                    resDate = date.getFullYear() + '-' + month + '-' + day + ' ' + hours + ":" + mins + ":" + date.getSeconds();
                 }
                 if (this.schedule_transaction)
                     this.$store.dispatch('transaction/newScheduledTransaction', {
